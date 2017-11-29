@@ -1,0 +1,2210 @@
+=======================================================
+Streambugs Model Definition
+=======================================================
+
+-------------------------------------------------------
+Input to the Model
+-------------------------------------------------------
+
+State Variables (54):
+Reach1_Hab1_POM1_POM
+Reach1_Hab1_POM2_POM
+Reach1_Hab1_Alga1_Algae
+Reach1_Hab1_Alga2_Algae
+Reach1_Hab1_Invert1_Invertebrates
+Reach1_Hab1_Invert2_Invertebrates
+Reach1_Hab1_Invert3_Invertebrates
+Reach1_Hab1_Invert4_Invertebrates
+Reach1_Hab1_Invert5_Invertebrates
+Reach1_Hab2_POM1_POM
+Reach1_Hab2_POM2_POM
+Reach1_Hab2_Alga1_Algae
+Reach1_Hab2_Alga2_Algae
+Reach1_Hab2_Invert1_Invertebrates
+Reach1_Hab2_Invert2_Invertebrates
+Reach1_Hab2_Invert3_Invertebrates
+Reach1_Hab2_Invert4_Invertebrates
+Reach1_Hab2_Invert5_Invertebrates
+Reach2_Hab1_POM1_POM
+Reach2_Hab1_POM2_POM
+Reach2_Hab1_Alga1_Algae
+Reach2_Hab1_Alga2_Algae
+Reach2_Hab1_Invert1_Invertebrates
+Reach2_Hab1_Invert2_Invertebrates
+Reach2_Hab1_Invert3_Invertebrates
+Reach2_Hab1_Invert4_Invertebrates
+Reach2_Hab1_Invert5_Invertebrates
+Reach2_Hab2_POM1_POM
+Reach2_Hab2_POM2_POM
+Reach2_Hab2_Alga1_Algae
+Reach2_Hab2_Alga2_Algae
+Reach2_Hab2_Invert1_Invertebrates
+Reach2_Hab2_Invert2_Invertebrates
+Reach2_Hab2_Invert3_Invertebrates
+Reach2_Hab2_Invert4_Invertebrates
+Reach2_Hab2_Invert5_Invertebrates
+Reach3_Hab1_POM1_POM
+Reach3_Hab1_POM2_POM
+Reach3_Hab1_Alga1_Algae
+Reach3_Hab1_Alga2_Algae
+Reach3_Hab1_Invert1_Invertebrates
+Reach3_Hab1_Invert2_Invertebrates
+Reach3_Hab1_Invert3_Invertebrates
+Reach3_Hab1_Invert4_Invertebrates
+Reach3_Hab1_Invert5_Invertebrates
+Reach3_Hab2_POM1_POM
+Reach3_Hab2_POM2_POM
+Reach3_Hab2_Alga1_Algae
+Reach3_Hab2_Alga2_Algae
+Reach3_Hab2_Invert1_Invertebrates
+Reach3_Hab2_Invert2_Invertebrates
+Reach3_Hab2_Invert3_Invertebrates
+Reach3_Hab2_Invert4_Invertebrates
+Reach3_Hab2_Invert5_Invertebrates
+
+Input Definitions (1):
+Reach3_w	2 data pairs
+
+Parameters (105):
+w	10
+Reach1_w	5
+L	1000
+T	293.15
+I0	125
+fshade	0.2
+Hab1_fshade	0.2
+CP	0.02
+CN	1
+tau	0.5
+taucrit	1
+POM_Dini	100
+Algae_Dini	100
+Invertebrates_Dini	10
+POM_EC	18000
+Algae_M	1e-07
+Algae_Ea	0.231
+Algae_b	0.93
+Algae_i0	4150455552
+Algae_EC	20000
+Invertebrates_M	0.001
+Invertebrates_Ea	0.68642
+Invertebrates_b	0.695071
+Invertebrates_i0	1.1e+16
+Invertebrates_EC	22000
+Algae_cdet	2
+POM_cdet	3
+Invertebrates_cdet	1
+Miner_POM1_POM1	-1
+Miner_POM2_POM2	-1
+Drift_POM1_POM1	-1
+Drift_POM2_POM2	-1
+Resp_Alga1_Alga1	-1
+Resp_Alga2_Alga2	-1
+Death_Alga1_Alga1	-1
+Death_Alga2_Alga2	-1
+Death_Alga1_POM1	1
+Death_Alga2_POM1	1
+Prod_Alga1_Alga1	1
+Prod_Alga2_Alga2	1
+Drift_Alga1_Alga1	-1
+Drift_Alga2_Alga2	-1
+Resp_Invert1_Invert1	-1
+Resp_Invert2_Invert2	-1
+Resp_Invert3_Invert3	-1
+Resp_Invert4_Invert4	-1
+Resp_Invert5_Invert5	-1
+Death_Invert1_Invert1	-1
+Death_Invert2_Invert2	-1
+Death_Invert3_Invert3	-1
+Death_Invert4_Invert4	-1
+Death_Invert5_Invert5	-1
+Death_Invert1_POM1	1
+Death_Invert2_POM1	1
+Death_Invert3_POM1	1
+Death_Invert4_POM1	1
+Death_Invert5_POM1	1
+Cons_Invert1_POM1_Invert1	1
+Cons_Invert2_POM1_Invert2	1
+Cons_Invert3_POM1_Invert3	1
+Cons_Invert4_POM1_Invert4	1
+Cons_Invert5_POM1_Invert5	1
+Cons_Invert1_POM1_POM1	-1
+Cons_Invert2_POM1_POM1	-1
+Cons_Invert3_POM1_POM1	-1
+Cons_Invert4_POM1_POM1	-1
+Cons_Invert5_POM1_POM1	-1
+Cons_Invert1_Alga1_Invert1	1
+Cons_Invert2_Alga1_Invert2	1
+Cons_Invert3_Alga1_Invert3	1
+Cons_Invert4_Alga1_Invert4	1
+Cons_Invert5_Alga1_Invert5	1
+Cons_Invert1_Alga1_Alga1	-1
+Cons_Invert2_Alga1_Alga1	-1
+Cons_Invert3_Alga1_Alga1	-1
+Cons_Invert4_Alga1_Alga1	-1
+Cons_Invert5_Alga1_Alga1	-1
+FishPred_Fish_Invert1_Invert1	-1
+FishPred_Fish_Invert5_Invert5	-1
+Drift_Invert1_Invert1	-1
+Drift_Invert2_Invert2	-1
+Drift_Invert3_Invert3	-1
+Drift_Invert4_Invert4	-1
+Drift_Invert5_Invert5	-1
+POM_kminer	20
+Algae_hdens	1000
+Algae_KI	62.1
+Algae_KP	0.01
+Algae_KN	0.1
+Algae_fresp	1
+Algae_fdeath	0.7
+Algae_fprod	5
+Invertebrates_hdens	10
+Invertebrates_fresp	2.5
+Invertebrates_fdeath	0.7
+Invertebrates_fcons	5
+Invertebrates_Kfood	1
+Invertebrates_q	2
+Invertebrates_Pref	1
+DFish	100
+Reach2_DFish	200
+Fish_cfish	10
+Fish_Kfood	1
+Fish_q	1
+Fish_Pref	1
+
+-------------------------------------------------------
+Derived Model Structure
+-------------------------------------------------------
+
+Global Parameters:
+kBoltzmann	8.61734e-05
+M0	1
+ftempmax_intercept	0
+ftempmax_curv	0
+fcurrent_intercept	0
+fcurrent_curv	0
+fsapro_intercept	0
+fsapro_curv	0
+forgmicropoll_intercept	0
+forgmicropoll_curv	0
+fmicrohab_intercept	0
+fmicrohab_curv	0
+
+Global Parameters related to environmental conditions and trait:  tempmaxKval
+
+Global Parameters related to environmental conditions and trait:  currentmsval
+
+Global Parameters related to environmental conditions and trait:  saprowqclassval
+
+Global Parameters related to environmental conditions and trait:  orgmicropollTUval
+
+Reach-Dependent Environmental Conditions:
+	w	L
+Reach1_Hab1_POM1_POM	5	1000
+Reach1_Hab1_POM2_POM	5	1000
+Reach1_Hab1_Alga1_Algae	5	1000
+Reach1_Hab1_Alga2_Algae	5	1000
+Reach1_Hab1_Invert1_Invertebrates	5	1000
+Reach1_Hab1_Invert2_Invertebrates	5	1000
+Reach1_Hab1_Invert3_Invertebrates	5	1000
+Reach1_Hab1_Invert4_Invertebrates	5	1000
+Reach1_Hab1_Invert5_Invertebrates	5	1000
+Reach1_Hab2_POM1_POM	5	1000
+Reach1_Hab2_POM2_POM	5	1000
+Reach1_Hab2_Alga1_Algae	5	1000
+Reach1_Hab2_Alga2_Algae	5	1000
+Reach1_Hab2_Invert1_Invertebrates	5	1000
+Reach1_Hab2_Invert2_Invertebrates	5	1000
+Reach1_Hab2_Invert3_Invertebrates	5	1000
+Reach1_Hab2_Invert4_Invertebrates	5	1000
+Reach1_Hab2_Invert5_Invertebrates	5	1000
+Reach2_Hab1_POM1_POM	10	1000
+Reach2_Hab1_POM2_POM	10	1000
+Reach2_Hab1_Alga1_Algae	10	1000
+Reach2_Hab1_Alga2_Algae	10	1000
+Reach2_Hab1_Invert1_Invertebrates	10	1000
+Reach2_Hab1_Invert2_Invertebrates	10	1000
+Reach2_Hab1_Invert3_Invertebrates	10	1000
+Reach2_Hab1_Invert4_Invertebrates	10	1000
+Reach2_Hab1_Invert5_Invertebrates	10	1000
+Reach2_Hab2_POM1_POM	10	1000
+Reach2_Hab2_POM2_POM	10	1000
+Reach2_Hab2_Alga1_Algae	10	1000
+Reach2_Hab2_Alga2_Algae	10	1000
+Reach2_Hab2_Invert1_Invertebrates	10	1000
+Reach2_Hab2_Invert2_Invertebrates	10	1000
+Reach2_Hab2_Invert3_Invertebrates	10	1000
+Reach2_Hab2_Invert4_Invertebrates	10	1000
+Reach2_Hab2_Invert5_Invertebrates	10	1000
+Reach3_Hab1_POM1_POM	input: Reach3_w	1000
+Reach3_Hab1_POM2_POM	input: Reach3_w	1000
+Reach3_Hab1_Alga1_Algae	input: Reach3_w	1000
+Reach3_Hab1_Alga2_Algae	input: Reach3_w	1000
+Reach3_Hab1_Invert1_Invertebrates	input: Reach3_w	1000
+Reach3_Hab1_Invert2_Invertebrates	input: Reach3_w	1000
+Reach3_Hab1_Invert3_Invertebrates	input: Reach3_w	1000
+Reach3_Hab1_Invert4_Invertebrates	input: Reach3_w	1000
+Reach3_Hab1_Invert5_Invertebrates	input: Reach3_w	1000
+Reach3_Hab2_POM1_POM	input: Reach3_w	1000
+Reach3_Hab2_POM2_POM	input: Reach3_w	1000
+Reach3_Hab2_Alga1_Algae	input: Reach3_w	1000
+Reach3_Hab2_Alga2_Algae	input: Reach3_w	1000
+Reach3_Hab2_Invert1_Invertebrates	input: Reach3_w	1000
+Reach3_Hab2_Invert2_Invertebrates	input: Reach3_w	1000
+Reach3_Hab2_Invert3_Invertebrates	input: Reach3_w	1000
+Reach3_Hab2_Invert4_Invertebrates	input: Reach3_w	1000
+Reach3_Hab2_Invert5_Invertebrates	input: Reach3_w	1000
+
+Habitat-Dependent Environmental Conditions:
+	T	I0	fshade	CP	CN	DSusPOM	tau	taucrit	tempmaxK	currentms	orgmicropollTU	saprowqclass	fA	DFish
+Reach1_Hab1_POM1_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab1_POM2_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab1_Alga1_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab1_Alga2_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab1_Invert1_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab1_Invert2_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab1_Invert3_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab1_Invert4_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab1_Invert5_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_POM1_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_POM2_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_Alga1_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_Alga2_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_Invert1_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_Invert2_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_Invert3_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_Invert4_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach1_Hab2_Invert5_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach2_Hab1_POM1_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab1_POM2_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab1_Alga1_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab1_Alga2_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab1_Invert1_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab1_Invert2_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab1_Invert3_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab1_Invert4_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab1_Invert5_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_POM1_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_POM2_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_Alga1_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_Alga2_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_Invert1_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_Invert2_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_Invert3_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_Invert4_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach2_Hab2_Invert5_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	200
+Reach3_Hab1_POM1_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab1_POM2_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab1_Alga1_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab1_Alga2_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab1_Invert1_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab1_Invert2_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab1_Invert3_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab1_Invert4_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab1_Invert5_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_POM1_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_POM2_POM	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_Alga1_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_Alga2_Algae	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_Invert1_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_Invert2_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_Invert3_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_Invert4_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+Reach3_Hab2_Invert5_Invertebrates	293.15	125	0.2	0.02	1	NA	0.5	1	NA	NA	NA	NA	0.5	100
+
+Habitat-Dependent Environmental Conditions belonging to group: microhabaf
+
+Initial Conditions:
+	Dini
+Reach1_Hab1_POM1_POM	100
+Reach1_Hab1_POM2_POM	100
+Reach1_Hab1_Alga1_Algae	100
+Reach1_Hab1_Alga2_Algae	100
+Reach1_Hab1_Invert1_Invertebrates	10
+Reach1_Hab1_Invert2_Invertebrates	10
+Reach1_Hab1_Invert3_Invertebrates	10
+Reach1_Hab1_Invert4_Invertebrates	10
+Reach1_Hab1_Invert5_Invertebrates	10
+Reach1_Hab2_POM1_POM	100
+Reach1_Hab2_POM2_POM	100
+Reach1_Hab2_Alga1_Algae	100
+Reach1_Hab2_Alga2_Algae	100
+Reach1_Hab2_Invert1_Invertebrates	10
+Reach1_Hab2_Invert2_Invertebrates	10
+Reach1_Hab2_Invert3_Invertebrates	10
+Reach1_Hab2_Invert4_Invertebrates	10
+Reach1_Hab2_Invert5_Invertebrates	10
+Reach2_Hab1_POM1_POM	100
+Reach2_Hab1_POM2_POM	100
+Reach2_Hab1_Alga1_Algae	100
+Reach2_Hab1_Alga2_Algae	100
+Reach2_Hab1_Invert1_Invertebrates	10
+Reach2_Hab1_Invert2_Invertebrates	10
+Reach2_Hab1_Invert3_Invertebrates	10
+Reach2_Hab1_Invert4_Invertebrates	10
+Reach2_Hab1_Invert5_Invertebrates	10
+Reach2_Hab2_POM1_POM	100
+Reach2_Hab2_POM2_POM	100
+Reach2_Hab2_Alga1_Algae	100
+Reach2_Hab2_Alga2_Algae	100
+Reach2_Hab2_Invert1_Invertebrates	10
+Reach2_Hab2_Invert2_Invertebrates	10
+Reach2_Hab2_Invert3_Invertebrates	10
+Reach2_Hab2_Invert4_Invertebrates	10
+Reach2_Hab2_Invert5_Invertebrates	10
+Reach3_Hab1_POM1_POM	100
+Reach3_Hab1_POM2_POM	100
+Reach3_Hab1_Alga1_Algae	100
+Reach3_Hab1_Alga2_Algae	100
+Reach3_Hab1_Invert1_Invertebrates	10
+Reach3_Hab1_Invert2_Invertebrates	10
+Reach3_Hab1_Invert3_Invertebrates	10
+Reach3_Hab1_Invert4_Invertebrates	10
+Reach3_Hab1_Invert5_Invertebrates	10
+Reach3_Hab2_POM1_POM	100
+Reach3_Hab2_POM2_POM	100
+Reach3_Hab2_Alga1_Algae	100
+Reach3_Hab2_Alga2_Algae	100
+Reach3_Hab2_Invert1_Invertebrates	10
+Reach3_Hab2_Invert2_Invertebrates	10
+Reach3_Hab2_Invert3_Invertebrates	10
+Reach3_Hab2_Invert4_Invertebrates	10
+Reach3_Hab2_Invert5_Invertebrates	10
+
+Input:
+	Input
+Reach1_Hab1_POM1_POM	0
+Reach1_Hab1_POM2_POM	0
+Reach1_Hab1_Alga1_Algae	0
+Reach1_Hab1_Alga2_Algae	0
+Reach1_Hab1_Invert1_Invertebrates	0
+Reach1_Hab1_Invert2_Invertebrates	0
+Reach1_Hab1_Invert3_Invertebrates	0
+Reach1_Hab1_Invert4_Invertebrates	0
+Reach1_Hab1_Invert5_Invertebrates	0
+Reach1_Hab2_POM1_POM	0
+Reach1_Hab2_POM2_POM	0
+Reach1_Hab2_Alga1_Algae	0
+Reach1_Hab2_Alga2_Algae	0
+Reach1_Hab2_Invert1_Invertebrates	0
+Reach1_Hab2_Invert2_Invertebrates	0
+Reach1_Hab2_Invert3_Invertebrates	0
+Reach1_Hab2_Invert4_Invertebrates	0
+Reach1_Hab2_Invert5_Invertebrates	0
+Reach2_Hab1_POM1_POM	0
+Reach2_Hab1_POM2_POM	0
+Reach2_Hab1_Alga1_Algae	0
+Reach2_Hab1_Alga2_Algae	0
+Reach2_Hab1_Invert1_Invertebrates	0
+Reach2_Hab1_Invert2_Invertebrates	0
+Reach2_Hab1_Invert3_Invertebrates	0
+Reach2_Hab1_Invert4_Invertebrates	0
+Reach2_Hab1_Invert5_Invertebrates	0
+Reach2_Hab2_POM1_POM	0
+Reach2_Hab2_POM2_POM	0
+Reach2_Hab2_Alga1_Algae	0
+Reach2_Hab2_Alga2_Algae	0
+Reach2_Hab2_Invert1_Invertebrates	0
+Reach2_Hab2_Invert2_Invertebrates	0
+Reach2_Hab2_Invert3_Invertebrates	0
+Reach2_Hab2_Invert4_Invertebrates	0
+Reach2_Hab2_Invert5_Invertebrates	0
+Reach3_Hab1_POM1_POM	0
+Reach3_Hab1_POM2_POM	0
+Reach3_Hab1_Alga1_Algae	0
+Reach3_Hab1_Alga2_Algae	0
+Reach3_Hab1_Invert1_Invertebrates	0
+Reach3_Hab1_Invert2_Invertebrates	0
+Reach3_Hab1_Invert3_Invertebrates	0
+Reach3_Hab1_Invert4_Invertebrates	0
+Reach3_Hab1_Invert5_Invertebrates	0
+Reach3_Hab2_POM1_POM	0
+Reach3_Hab2_POM2_POM	0
+Reach3_Hab2_Alga1_Algae	0
+Reach3_Hab2_Alga2_Algae	0
+Reach3_Hab2_Invert1_Invertebrates	0
+Reach3_Hab2_Invert2_Invertebrates	0
+Reach3_Hab2_Invert3_Invertebrates	0
+Reach3_Hab2_Invert4_Invertebrates	0
+Reach3_Hab2_Invert5_Invertebrates	0
+
+Directly Defined Taxa Properties:
+	M	Ea	b	i0	EC	fbasaltax
+Reach1_Hab1_POM1_POM	NA	NA	0.75	NA	18000	1
+Reach1_Hab1_POM2_POM	NA	NA	0.75	NA	18000	1
+Reach1_Hab1_Alga1_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach1_Hab1_Alga2_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach1_Hab1_Invert1_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab1_Invert2_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab1_Invert3_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab1_Invert4_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab1_Invert5_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab2_POM1_POM	NA	NA	0.75	NA	18000	1
+Reach1_Hab2_POM2_POM	NA	NA	0.75	NA	18000	1
+Reach1_Hab2_Alga1_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach1_Hab2_Alga2_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach1_Hab2_Invert1_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab2_Invert2_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab2_Invert3_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab2_Invert4_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach1_Hab2_Invert5_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab1_POM1_POM	NA	NA	0.75	NA	18000	1
+Reach2_Hab1_POM2_POM	NA	NA	0.75	NA	18000	1
+Reach2_Hab1_Alga1_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach2_Hab1_Alga2_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach2_Hab1_Invert1_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab1_Invert2_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab1_Invert3_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab1_Invert4_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab1_Invert5_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab2_POM1_POM	NA	NA	0.75	NA	18000	1
+Reach2_Hab2_POM2_POM	NA	NA	0.75	NA	18000	1
+Reach2_Hab2_Alga1_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach2_Hab2_Alga2_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach2_Hab2_Invert1_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab2_Invert2_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab2_Invert3_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab2_Invert4_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach2_Hab2_Invert5_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab1_POM1_POM	NA	NA	0.75	NA	18000	1
+Reach3_Hab1_POM2_POM	NA	NA	0.75	NA	18000	1
+Reach3_Hab1_Alga1_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach3_Hab1_Alga2_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach3_Hab1_Invert1_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab1_Invert2_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab1_Invert3_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab1_Invert4_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab1_Invert5_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab2_POM1_POM	NA	NA	0.75	NA	18000	1
+Reach3_Hab2_POM2_POM	NA	NA	0.75	NA	18000	1
+Reach3_Hab2_Alga1_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach3_Hab2_Alga2_Algae	1e-07	0.231	0.93	4150455552	20000	1
+Reach3_Hab2_Invert1_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab2_Invert2_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab2_Invert3_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab2_Invert4_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+Reach3_Hab2_Invert5_Invertebrates	0.001	0.68642	0.695071	1.1e+16	22000	1
+
+Trait-Derived Taxa Properties: saprotolval
+
+Trait-Derived Taxa Properties: orgmicropolltolval
+
+Trait-Derived Taxa Properties: currenttolval
+
+Trait-Derived Taxa Properties: tempmaxtolval
+
+Trait-Derived Taxa Properties: microhabtolval
+
+Stoichiometry of Process Miner:
+	POM1
+  POM1:	-1
+	POM2
+  POM2:	-1
+
+Stoichiometry of Process Drift:
+	POM1
+  POM1:	-1
+	POM2
+  POM2:	-1
+	Alga1
+  Alga1:	-1
+	Alga2
+  Alga2:	-1
+	Invert1
+  Invert1:	-1
+	Invert2
+  Invert2:	-1
+	Invert3
+  Invert3:	-1
+	Invert4
+  Invert4:	-1
+	Invert5
+  Invert5:	-1
+
+Stoichiometry of Process Resp:
+	Alga1
+  Alga1:	-1
+	Alga2
+  Alga2:	-1
+	Invert1
+  Invert1:	-1
+	Invert2
+  Invert2:	-1
+	Invert3
+  Invert3:	-1
+	Invert4
+  Invert4:	-1
+	Invert5
+  Invert5:	-1
+
+Stoichiometry of Process Death:
+	Alga1	POM1
+  Alga1:	-1	1
+	Alga2	POM1
+  Alga2:	-1	1
+	Invert1	POM1
+  Invert1:	-1	1
+	Invert2	POM1
+  Invert2:	-1	1
+	Invert3	POM1
+  Invert3:	-1	1
+	Invert4	POM1
+  Invert4:	-1	1
+	Invert5	POM1
+  Invert5:	-1	1
+
+Stoichiometry of Process Prod:
+	Alga1
+  Alga1:	1
+	Alga2
+  Alga2:	1
+
+Stoichiometry of Process Cons:
+	Invert1	POM1
+  Invert1-POM1:	1	-1
+	Invert1	Alga1
+  Invert1-Alga1:	1	-1
+	Invert2	POM1
+  Invert2-POM1:	1	-1
+	Invert2	Alga1
+  Invert2-Alga1:	1	-1
+	Invert3	POM1
+  Invert3-POM1:	1	-1
+	Invert3	Alga1
+  Invert3-Alga1:	1	-1
+	Invert4	POM1
+  Invert4-POM1:	1	-1
+	Invert4	Alga1
+  Invert4-Alga1:	1	-1
+	Invert5	POM1
+  Invert5-POM1:	1	-1
+	Invert5	Alga1
+  Invert5-Alga1:	1	-1
+
+Stoichiometry of Process FishPred:
+	Invert1
+  Fish-Invert1:	-1
+	Invert5
+  Fish-Invert5:	-1
+
+Process Definitions by State Variables:
+
+State Variable 1:	Reach1_Hab1_POM1_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM1
+      StateVar:	1
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM1
+      StateVar:	1
+      StoichCoeff:	-1
+  FishPred:
+      Parameter:	cfish	Kfood	q
+      Value:	10	1	1
+    Invert1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	5
+      StoichCoeff:	-1
+    Invert5:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	9
+      StoichCoeff:	-1
+
+State Variable 2:	Reach1_Hab1_POM2_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM2
+      StateVar:	2
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM2
+      StateVar:	2
+      StoichCoeff:	-1
+
+State Variable 3:	Reach1_Hab1_Alga1_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga1
+      StateVar:	3
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga1
+      StateVar:	3
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga1	POM1
+      StateVar:	3	1
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga1
+      StateVar:	3
+      StoichCoeff:	1
+
+State Variable 4:	Reach1_Hab1_Alga2_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga2
+      StateVar:	4
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga2
+      StateVar:	4
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga2	POM1
+      StateVar:	4	1
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga2
+      StateVar:	4
+      StoichCoeff:	1
+
+State Variable 5:	Reach1_Hab1_Invert1_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	5
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert1
+      StateVar:	5
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert1	POM1
+      StateVar:	5	1
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	POM1
+      StateVar:	5	1
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	Alga1
+      StateVar:	5	3
+      StoichCoeff:	1	-1
+
+State Variable 6:	Reach1_Hab1_Invert2_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert2
+      StateVar:	6
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert2
+      StateVar:	6
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert2	POM1
+      StateVar:	6	1
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	POM1
+      StateVar:	6	1
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	Alga1
+      StateVar:	6	3
+      StoichCoeff:	1	-1
+
+State Variable 7:	Reach1_Hab1_Invert3_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert3
+      StateVar:	7
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert3
+      StateVar:	7
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert3	POM1
+      StateVar:	7	1
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	POM1
+      StateVar:	7	1
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	Alga1
+      StateVar:	7	3
+      StoichCoeff:	1	-1
+
+State Variable 8:	Reach1_Hab1_Invert4_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert4
+      StateVar:	8
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert4
+      StateVar:	8
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert4	POM1
+      StateVar:	8	1
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	POM1
+      StateVar:	8	1
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	Alga1
+      StateVar:	8	3
+      StoichCoeff:	1	-1
+
+State Variable 9:	Reach1_Hab1_Invert5_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	9
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert5
+      StateVar:	9
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert5	POM1
+      StateVar:	9	1
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	POM1
+      StateVar:	9	1
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	Alga1
+      StateVar:	9	3
+      StoichCoeff:	1	-1
+
+State Variable 10:	Reach1_Hab2_POM1_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM1
+      StateVar:	10
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM1
+      StateVar:	10
+      StoichCoeff:	-1
+  FishPred:
+      Parameter:	cfish	Kfood	q
+      Value:	10	1	1
+    Invert1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	14
+      StoichCoeff:	-1
+    Invert5:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	18
+      StoichCoeff:	-1
+
+State Variable 11:	Reach1_Hab2_POM2_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM2
+      StateVar:	11
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM2
+      StateVar:	11
+      StoichCoeff:	-1
+
+State Variable 12:	Reach1_Hab2_Alga1_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga1
+      StateVar:	12
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga1
+      StateVar:	12
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga1	POM1
+      StateVar:	12	10
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga1
+      StateVar:	12
+      StoichCoeff:	1
+
+State Variable 13:	Reach1_Hab2_Alga2_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga2
+      StateVar:	13
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga2
+      StateVar:	13
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga2	POM1
+      StateVar:	13	10
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga2
+      StateVar:	13
+      StoichCoeff:	1
+
+State Variable 14:	Reach1_Hab2_Invert1_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	14
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert1
+      StateVar:	14
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert1	POM1
+      StateVar:	14	10
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	POM1
+      StateVar:	14	10
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	Alga1
+      StateVar:	14	12
+      StoichCoeff:	1	-1
+
+State Variable 15:	Reach1_Hab2_Invert2_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert2
+      StateVar:	15
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert2
+      StateVar:	15
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert2	POM1
+      StateVar:	15	10
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	POM1
+      StateVar:	15	10
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	Alga1
+      StateVar:	15	12
+      StoichCoeff:	1	-1
+
+State Variable 16:	Reach1_Hab2_Invert3_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert3
+      StateVar:	16
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert3
+      StateVar:	16
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert3	POM1
+      StateVar:	16	10
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	POM1
+      StateVar:	16	10
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	Alga1
+      StateVar:	16	12
+      StoichCoeff:	1	-1
+
+State Variable 17:	Reach1_Hab2_Invert4_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert4
+      StateVar:	17
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert4
+      StateVar:	17
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert4	POM1
+      StateVar:	17	10
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	POM1
+      StateVar:	17	10
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	Alga1
+      StateVar:	17	12
+      StoichCoeff:	1	-1
+
+State Variable 18:	Reach1_Hab2_Invert5_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	18
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert5
+      StateVar:	18
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert5	POM1
+      StateVar:	18	10
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	POM1
+      StateVar:	18	10
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	Alga1
+      StateVar:	18	12
+      StoichCoeff:	1	-1
+
+State Variable 19:	Reach2_Hab1_POM1_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM1
+      StateVar:	19
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM1
+      StateVar:	19
+      StoichCoeff:	-1
+  FishPred:
+      Parameter:	cfish	Kfood	q
+      Value:	10	1	1
+    Invert1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	23
+      StoichCoeff:	-1
+    Invert5:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	27
+      StoichCoeff:	-1
+
+State Variable 20:	Reach2_Hab1_POM2_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM2
+      StateVar:	20
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM2
+      StateVar:	20
+      StoichCoeff:	-1
+
+State Variable 21:	Reach2_Hab1_Alga1_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga1
+      StateVar:	21
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga1
+      StateVar:	21
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga1	POM1
+      StateVar:	21	19
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga1
+      StateVar:	21
+      StoichCoeff:	1
+
+State Variable 22:	Reach2_Hab1_Alga2_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga2
+      StateVar:	22
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga2
+      StateVar:	22
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga2	POM1
+      StateVar:	22	19
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga2
+      StateVar:	22
+      StoichCoeff:	1
+
+State Variable 23:	Reach2_Hab1_Invert1_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	23
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert1
+      StateVar:	23
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert1	POM1
+      StateVar:	23	19
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	POM1
+      StateVar:	23	19
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	Alga1
+      StateVar:	23	21
+      StoichCoeff:	1	-1
+
+State Variable 24:	Reach2_Hab1_Invert2_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert2
+      StateVar:	24
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert2
+      StateVar:	24
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert2	POM1
+      StateVar:	24	19
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	POM1
+      StateVar:	24	19
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	Alga1
+      StateVar:	24	21
+      StoichCoeff:	1	-1
+
+State Variable 25:	Reach2_Hab1_Invert3_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert3
+      StateVar:	25
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert3
+      StateVar:	25
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert3	POM1
+      StateVar:	25	19
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	POM1
+      StateVar:	25	19
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	Alga1
+      StateVar:	25	21
+      StoichCoeff:	1	-1
+
+State Variable 26:	Reach2_Hab1_Invert4_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert4
+      StateVar:	26
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert4
+      StateVar:	26
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert4	POM1
+      StateVar:	26	19
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	POM1
+      StateVar:	26	19
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	Alga1
+      StateVar:	26	21
+      StoichCoeff:	1	-1
+
+State Variable 27:	Reach2_Hab1_Invert5_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	27
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert5
+      StateVar:	27
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert5	POM1
+      StateVar:	27	19
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	POM1
+      StateVar:	27	19
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	Alga1
+      StateVar:	27	21
+      StoichCoeff:	1	-1
+
+State Variable 28:	Reach2_Hab2_POM1_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM1
+      StateVar:	28
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM1
+      StateVar:	28
+      StoichCoeff:	-1
+  FishPred:
+      Parameter:	cfish	Kfood	q
+      Value:	10	1	1
+    Invert1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	32
+      StoichCoeff:	-1
+    Invert5:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	36
+      StoichCoeff:	-1
+
+State Variable 29:	Reach2_Hab2_POM2_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM2
+      StateVar:	29
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM2
+      StateVar:	29
+      StoichCoeff:	-1
+
+State Variable 30:	Reach2_Hab2_Alga1_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga1
+      StateVar:	30
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga1
+      StateVar:	30
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga1	POM1
+      StateVar:	30	28
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga1
+      StateVar:	30
+      StoichCoeff:	1
+
+State Variable 31:	Reach2_Hab2_Alga2_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga2
+      StateVar:	31
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga2
+      StateVar:	31
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga2	POM1
+      StateVar:	31	28
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga2
+      StateVar:	31
+      StoichCoeff:	1
+
+State Variable 32:	Reach2_Hab2_Invert1_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	32
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert1
+      StateVar:	32
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert1	POM1
+      StateVar:	32	28
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	POM1
+      StateVar:	32	28
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	Alga1
+      StateVar:	32	30
+      StoichCoeff:	1	-1
+
+State Variable 33:	Reach2_Hab2_Invert2_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert2
+      StateVar:	33
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert2
+      StateVar:	33
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert2	POM1
+      StateVar:	33	28
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	POM1
+      StateVar:	33	28
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	Alga1
+      StateVar:	33	30
+      StoichCoeff:	1	-1
+
+State Variable 34:	Reach2_Hab2_Invert3_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert3
+      StateVar:	34
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert3
+      StateVar:	34
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert3	POM1
+      StateVar:	34	28
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	POM1
+      StateVar:	34	28
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	Alga1
+      StateVar:	34	30
+      StoichCoeff:	1	-1
+
+State Variable 35:	Reach2_Hab2_Invert4_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert4
+      StateVar:	35
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert4
+      StateVar:	35
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert4	POM1
+      StateVar:	35	28
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	POM1
+      StateVar:	35	28
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	Alga1
+      StateVar:	35	30
+      StoichCoeff:	1	-1
+
+State Variable 36:	Reach2_Hab2_Invert5_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	36
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert5
+      StateVar:	36
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert5	POM1
+      StateVar:	36	28
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	POM1
+      StateVar:	36	28
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	Alga1
+      StateVar:	36	30
+      StoichCoeff:	1	-1
+
+State Variable 37:	Reach3_Hab1_POM1_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM1
+      StateVar:	37
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM1
+      StateVar:	37
+      StoichCoeff:	-1
+  FishPred:
+      Parameter:	cfish	Kfood	q
+      Value:	10	1	1
+    Invert1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	41
+      StoichCoeff:	-1
+    Invert5:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	45
+      StoichCoeff:	-1
+
+State Variable 38:	Reach3_Hab1_POM2_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM2
+      StateVar:	38
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM2
+      StateVar:	38
+      StoichCoeff:	-1
+
+State Variable 39:	Reach3_Hab1_Alga1_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga1
+      StateVar:	39
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga1
+      StateVar:	39
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga1	POM1
+      StateVar:	39	37
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga1
+      StateVar:	39
+      StoichCoeff:	1
+
+State Variable 40:	Reach3_Hab1_Alga2_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga2
+      StateVar:	40
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga2
+      StateVar:	40
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga2	POM1
+      StateVar:	40	37
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga2
+      StateVar:	40
+      StoichCoeff:	1
+
+State Variable 41:	Reach3_Hab1_Invert1_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	41
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert1
+      StateVar:	41
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert1	POM1
+      StateVar:	41	37
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	POM1
+      StateVar:	41	37
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	Alga1
+      StateVar:	41	39
+      StoichCoeff:	1	-1
+
+State Variable 42:	Reach3_Hab1_Invert2_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert2
+      StateVar:	42
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert2
+      StateVar:	42
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert2	POM1
+      StateVar:	42	37
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	POM1
+      StateVar:	42	37
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	Alga1
+      StateVar:	42	39
+      StoichCoeff:	1	-1
+
+State Variable 43:	Reach3_Hab1_Invert3_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert3
+      StateVar:	43
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert3
+      StateVar:	43
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert3	POM1
+      StateVar:	43	37
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	POM1
+      StateVar:	43	37
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	Alga1
+      StateVar:	43	39
+      StoichCoeff:	1	-1
+
+State Variable 44:	Reach3_Hab1_Invert4_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert4
+      StateVar:	44
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert4
+      StateVar:	44
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert4	POM1
+      StateVar:	44	37
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	POM1
+      StateVar:	44	37
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	Alga1
+      StateVar:	44	39
+      StoichCoeff:	1	-1
+
+State Variable 45:	Reach3_Hab1_Invert5_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	45
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert5
+      StateVar:	45
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert5	POM1
+      StateVar:	45	37
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	POM1
+      StateVar:	45	37
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	Alga1
+      StateVar:	45	39
+      StoichCoeff:	1	-1
+
+State Variable 46:	Reach3_Hab2_POM1_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM1
+      StateVar:	46
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM1
+      StateVar:	46
+      StoichCoeff:	-1
+  FishPred:
+      Parameter:	cfish	Kfood	q
+      Value:	10	1	1
+    Invert1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	50
+      StoichCoeff:	-1
+    Invert5:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	54
+      StoichCoeff:	-1
+
+State Variable 47:	Reach3_Hab2_POM2_POM
+  Miner:
+      Parameter:	kminer
+      Value:	20
+      Taxon:	POM2
+      StateVar:	47
+      StoichCoeff:	-1
+  Drift:
+      Parameter:	cdet
+      Value:	3
+      Taxon:	POM2
+      StateVar:	47
+      StoichCoeff:	-1
+
+State Variable 48:	Reach3_Hab2_Alga1_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga1
+      StateVar:	48
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga1
+      StateVar:	48
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga1	POM1
+      StateVar:	48	46
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga1
+      StateVar:	48
+      StoichCoeff:	1
+
+State Variable 49:	Reach3_Hab2_Alga2_Algae
+  Drift:
+      Parameter:	cdet
+      Value:	2
+      Taxon:	Alga2
+      StateVar:	49
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	1
+      Taxon:	Alga2
+      StateVar:	49
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Alga2	POM1
+      StateVar:	49	46
+      StoichCoeff:	-1	1
+  Prod:
+      Parameter:	fprod	fgrotax	hdens	KI	KP	KN
+      Value:	5	1	1000	62.1	0.01	0.1
+      Taxon:	Alga2
+      StateVar:	49
+      StoichCoeff:	1
+
+State Variable 50:	Reach3_Hab2_Invert1_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert1
+      StateVar:	50
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert1
+      StateVar:	50
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert1	POM1
+      StateVar:	50	46
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	POM1
+      StateVar:	50	46
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert1	Alga1
+      StateVar:	50	48
+      StoichCoeff:	1	-1
+
+State Variable 51:	Reach3_Hab2_Invert2_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert2
+      StateVar:	51
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert2
+      StateVar:	51
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert2	POM1
+      StateVar:	51	46
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	POM1
+      StateVar:	51	46
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert2	Alga1
+      StateVar:	51	48
+      StoichCoeff:	1	-1
+
+State Variable 52:	Reach3_Hab2_Invert3_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert3
+      StateVar:	52
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert3
+      StateVar:	52
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert3	POM1
+      StateVar:	52	46
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	POM1
+      StateVar:	52	46
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert3	Alga1
+      StateVar:	52	48
+      StoichCoeff:	1	-1
+
+State Variable 53:	Reach3_Hab2_Invert4_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert4
+      StateVar:	53
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert4
+      StateVar:	53
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert4	POM1
+      StateVar:	53	46
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	POM1
+      StateVar:	53	46
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert4	Alga1
+      StateVar:	53	48
+      StoichCoeff:	1	-1
+
+State Variable 54:	Reach3_Hab2_Invert5_Invertebrates
+  Drift:
+      Parameter:	cdet
+      Value:	1
+      Taxon:	Invert5
+      StateVar:	54
+      StoichCoeff:	-1
+  Resp:
+      Parameter:	fresp
+      Value:	2.5
+      Taxon:	Invert5
+      StateVar:	54
+      StoichCoeff:	-1
+  Death:
+      Parameter:	fdeath
+      Value:	0.7
+      Taxon:	Invert5	POM1
+      StateVar:	54	46
+      StoichCoeff:	-1	1
+  Cons:
+      Parameter:	fcons	fgrotax	hdens	Kfood	q
+      Value:	5	1	10	1	2
+    POM1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	POM1
+      StateVar:	54	46
+      StoichCoeff:	1	-1
+    Alga1:
+      Parameter:	Pref
+      Value:	1
+      Taxon:	Invert5	Alga1
+      StateVar:	54	48
+      StoichCoeff:	1	-1

@@ -1,0 +1,2 @@
+#opt, from compile_C.r:
+# PKG_CFLAGS = -std=gnu99 -mtune=core2
