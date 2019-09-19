@@ -4,9 +4,10 @@
 \alias{run.streambugs}
 \title{Run the streambugs ODE model}
 \usage{
-run.streambugs(y.names, times, par, inp = NA, C = FALSE, file.def = NA,
-  file.res = NA, file.add = NA, return.res.add = FALSE, tout.add = NA,
-  verbose = T, method = "lsoda", rtol = 1e-04, atol = 1e-04, ...)
+run.streambugs(y.names, times, par, inp = NA, C = FALSE,
+  file.def = NA, file.res = NA, file.add = NA,
+  return.res.add = FALSE, tout.add = NA, verbose = TRUE,
+  method = "lsoda", rtol = 1e-04, atol = 1e-04, ...)
 }
 \arguments{
 \item{y.names}{state variables names, either as a vector encoded in the form
@@ -49,7 +50,7 @@ error, either a scalar or an array of the same size as \code{y.names}}
 }
 \value{
 A list with:\describe{
-   \item{\code{$res}}{matrix of class \code{\link[deSolve]{deSolve}} with up
+   \item{\code{$res}}{matrix of class \code{streambugs} with up
      to as many rows aselements in times and as many columns as elements in
      \code{y.names}, plus an additional column for the time value.
      There will be a row for each element in times unless the
@@ -66,7 +67,8 @@ routine.
 }
 \section{Model syntax}{
 
-See "doc/Streambugs_syntax.pdf" file in the package installation folder.
+See "docs/Streambugs_syntax.pdf" file in the package installation folder:
+\code{system.file("docs", "Streambugs_syntax.pdf", package="streambugs")}.
 }
 
 \examples{

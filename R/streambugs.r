@@ -436,7 +436,7 @@ free.streambugs.C <- function()
 #' @param ... further arguments passed to \code{\link[deSolve]{ode}}
 #'
 #' @return A list with:\describe{
-#'    \item{\code{$res}}{matrix of class \code{\link[deSolve]{deSolve}} with up
+#'    \item{\code{$res}}{matrix of class \code{streambugs} with up
 #'      to as many rows aselements in times and as many columns as elements in
 #'      \code{y.names}, plus an additional column for the time value.
 #'      There will be a row for each element in times unless the
@@ -467,7 +467,7 @@ free.streambugs.C <- function()
 run.streambugs <- function(y.names,times,par,inp=NA,C=FALSE,
                            file.def=NA,file.res=NA,file.add=NA,
                            return.res.add = FALSE,tout.add=NA,
-                           verbose=T,
+                           verbose=TRUE,
                            method="lsoda",rtol=1e-4,atol=1e-4,...)
 
   # file.add: File name for additional output
@@ -564,6 +564,9 @@ run.streambugs <- function(y.names,times,par,inp=NA,C=FALSE,
 
   if(length(times) > nrow(res)) warning("unrecoverable error occurred, res not complete")
 
+  # change class from "deSolve" to "streambugs"
+  class(res)="streambugs"
+  
   # write additional output (limiting factors and rates) if !is.na(file.add)
   # ----------------------------------------------------------------------------
 

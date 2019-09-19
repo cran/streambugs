@@ -15,7 +15,7 @@ examples.
 Useful links:
 \itemize{
   \item \url{http://www.eawag.ch/en/department/siam/projects/streambugs/}
-  \item Report bugs at \url{https://github.com/trybik/streambugs/issues}
+  \item Report bugs at \url{https://gitlab.com/NeleSchuwirth/streambugs/issues}
 }
 
 }

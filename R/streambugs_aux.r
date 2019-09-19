@@ -2471,116 +2471,7 @@ calculate.additional.output <- function(res,par,inp,file.add=NA,tout.add=NA)
 }
 
 
-# function to generate standard plot of streambugs results
-# --------------------------------------------------------
-
-# Note: S3-inheritance arguments consistency with generic plot function args
-#       only to clean CRAN check warning; in future, if the simulation run
-#       result `x` will have class "streambugs", then calling
-#       `plot(res, par, inp, ...)` will invoke this method
-
-#' Plot the results of streambugs ODE run
-#'
-#' Plot time series of all streambugs ODE state variables, for each reach,
-#' habitat and group, resulting from the
-#' \code{\link{run.streambugs}} function call.
-#'
-#' @param x matrix with results derived by
-#'    \code{\link{run.streambugs}}
-#' @param y same as \code{par} in \code{\link{run.streambugs}}
-#' @param inp same as \code{inp} in \code{\link{run.streambugs}}
-#' @param ... additional argument for the \code{\link[graphics]{plot}} function
-#'    call
-#'
-#' @export
-plot.streambugs <- function(x,y,inp=NA,...)
-{
-  res = x; par = y
-  sys.def <- streambugs.get.sys.def(y.names=colnames(res)[-1],par=par,inp=inp)
-  y.names <- sys.def$y.names
-
-  par.envcond.w <- get.inpind.parval.envcond.reach(
-    par.names = c("w"),
-    y.names   = y.names,
-    par       = par,
-    inp       = inp,
-    required  = c("w"))
-
-  par.envcond.fA <- get.inpind.parval.envcond.habitat(
-    par.names = c("fA"),
-    y.names   = y.names,
-    par       = par,
-    inp       = inp,
-    defaults  = c(fA=1))
-
-  # evaluate time-dependent inputs and merge them with parameters
-  # (overwriting parameters if one exists with the same name):
-  # -------------------------------------------------------------
-
-  for ( j in 1:nrow(res) )
-  {
-    # update (time-dependent) parameters:
-
-    inpvals <- interpolate.inputs(inp,res[j,1])
-
-    w  <- streambugs.update.envcond.reach(par.envcond.w,inpvals)[,"w"]
-    fA <- streambugs.update.envcond.habitat(par.envcond.fA,inpvals,y.names$ind.fA)[,"fA"]
-
-    # convert results in mass per unit length into mass per unit
-    # surface area:
-
-    res[j,-1] <- res[j,-1]/(w*fA)
-  }
-
-  # determin maxima of converted results:
-
-  y.max <- rep(NA,length(y.names$groups))
-  for ( i in 1:length(y.names$groups) )
-  {
-    y.max[i] <- 1.1*max(res[,1+which(y.names$y.groups==y.names$groups[i])])
-  }
-  names(y.max) <- y.names$groups
-
-  # get time:
-
-  t    <- res[,1]
-
-  # plot output by groups:
-
-  par.def <- par(no.readonly=TRUE)
-  par(mfrow=c(length(y.names$habitats),length(y.names$groups)))
-  for ( reach in y.names$reaches )
-  {
-    for ( habitat in y.names$habitats )
-    {
-      for ( group in y.names$groups )
-      {
-        plot(numeric(0),numeric(0),type="n",
-             xlim=c(min(t),max(t)),ylim=c(0,y.max[group]),
-             xlab="time [a]",ylab="biomass [gDM/m2]",
-             main=paste(reach,habitat,group), ...)
-        ind <- which(y.names$y.reaches  == reach &
-                       y.names$y.habitats == habitat &
-                       y.names$y.groups   == group )
-        if ( length(ind) > 0 )
-        {
-          for ( k in 1:length(ind) )
-          {
-            lines(t,res[,1+ind[k]],lty=k)
-          }
-          legend(x="topleft",legend=y.names$y.taxa[ind],lty=1:length(ind))
-        }
-      }
-    }
-  }
-  par(par.def)
-
-  #write.table(res,paste("output/res_gDMperm2_",name.run,".dat",sep=""),
-  #            sep="\t",row.names=F,col.names=T)
-
-}
-
-exp.transform <-   function(x,intercept=0,curv=0)
+exp.transform <- function(x,intercept=0,curv=0)
 {
   #!if curv > 0 and intercept <1: function is curved to the right, if curv < 0 and intercept <1 function is curved to the left
   #!if curv > 0 and intercept >1: function is curved to the left,  if curv < 0 and intercept >1 function is curved to the right
@@ -2594,3 +2485,44 @@ exp.transform <-   function(x,intercept=0,curv=0)
   return(y)
 }
 
+
+#' Count feeding links between taxa in streambugs ODE.
+#'
+#' Count number of global "Cons" stoichiometric interactions (feeding links) between
+#' streambugs ODE state variables (taxa) in all habitats.
+#'
+#' @param y.names same as  \code{y.names} in \code{\link{run.streambugs}}
+#' @param par same as  \code{par} in \code{\link{run.streambugs}}
+#'
+#' @return Integer number of feeding links, which is a number of feeding links in a
+#'    single habitat times number of habitats and number of reaches.
+#'
+#' @examples
+#' m <- streambugs.example.model.toy()
+#' count.feeding.links(m$y.names, m$par)
+#'
+#' # feeding links count does not change w/ number of habitats (nor reaches)
+#' m <- streambugs.example.model.toy(n.Habitats=10)
+#' count.feeding.links(m$y.names, m$par)
+#'
+#' @export
+count.feeding.links <- function(y.names, par) {
+
+  if ( !is.list(y.names) ) y.names <- decode.statevarnames(y.names)
+
+  stoich.Cons  <- get.par.stoich.web("Cons" ,par) #xxx
+
+  foods <-  list()
+  for ( i in 1:length(y.names$taxa) ){
+    foods[[y.names$taxa[i]]] <- names(stoich.Cons[[y.names$taxa[i]]])
+  }
+  n.links <- length(unlist(foods))
+
+  # simpler alternative that works only if par is consistent with states
+  # n.links <- sum(sapply(stoich.Cons, length))
+
+  n.habitats <- length(y.names$habitats)
+  n.reaches <- length(y.names$reaches)
+
+  return(n.reaches*n.habitats*n.links)
+}

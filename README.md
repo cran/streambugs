@@ -32,8 +32,9 @@ Run `R` shell and load `devtools` library:
     $ R
     > library(devtools)
 
-To create docs, build package and install it run in this folder:
+To compile C sources, create docs, build package and install it run in this folder:
 
+    > pkgbuild::compile_dll()
     > devtools::document()
     > pkg_src = devtools::build()
     > install.packages(pkg_src, repos=NULL, type="source")
@@ -61,9 +62,9 @@ CRAN submission by running in shell:
 This creates the `streambugs.Rcheck/` folder which contains also a PDF file
 `streambugs-manual.pdf`, that is the R vignette of the package.
 
-Equivalently, from `R` shell, after the build, run:
+Alternatively, to check without packaging, from `R` shell run in the root working dir:
 
-    > devtools::check(pkg_src)
+    > devtools::check()
 
 ### Cleanup
 
