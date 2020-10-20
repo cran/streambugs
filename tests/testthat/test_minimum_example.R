@@ -2,7 +2,7 @@ library(streambugs)
 context("streambugs")
 
 
-source_test_helpers()
+testthat::source_test_helpers()
 
 
 # Note: cannot put model simulation into helper_run_X_example.R because, then it also
@@ -17,17 +17,17 @@ if (!exists("minimum.example.setup")) {
 test_that("check minimum example feeding links count", {
     n.feeding.links.habitat.expected <- 10
     n.feeding.links.expected <- 3*2*n.feeding.links.habitat.expected
-    n.feeding.links <- count.feeding.links(example$model$y.names, example$model$par)
-    expect_equal(n.feeding.links.expected, n.feeding.links)
+    n.feeding.links <- streambugs::count.feeding.links(example$model$y.names, example$model$par)
+    testthat::expect_equal(n.feeding.links.expected, n.feeding.links)
     
     n.habitats <- 5
     n.reaches <- 1
     n.feeding.links.expected <- 1*5*n.feeding.links.habitat.expected
-    model <- streambugs.example.model.toy(n.Reaches = n.reaches, n.Habitats = n.habitats)
+    model <- streambugs::streambugs.example.model.toy(n.Reaches = n.reaches, n.Habitats = n.habitats)
     n.feeding.links <- count.feeding.links(model$y.names, model$par)
-    expect_equal(n.feeding.links.expected, n.feeding.links)
+    testthat::expect_equal(n.feeding.links.expected, n.feeding.links)
     n.feeding.links <- count.feeding.links(model$y.names$y.names, model$par)
-    expect_equal(n.feeding.links.expected, n.feeding.links)
+    testthat::expect_equal(n.feeding.links.expected, n.feeding.links)
 })
 
 

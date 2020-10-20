@@ -21,7 +21,11 @@ benchmarks.basename <- file.path("output","states_vs_time")
 
 .update.list <- function(lst1, lst2) {
     keys <- unique(c(names(lst1), names(lst2)))
-    as.list(setNames(mapply(function(x,y) if (is.null(y)) x else y, lst1[keys], lst2[keys]), keys))
+    as.list(stats::setNames(
+        mapply(
+            function(x,y) if (is.null(y)) x else y,
+            lst1[keys], lst2[keys]),
+        keys))
 }
 
 #' Time `n.repeats` times `run.streambugs` (C version).

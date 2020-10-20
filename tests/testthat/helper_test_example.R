@@ -3,14 +3,14 @@
 #' Read reference CSV simulation results and compare with the simulated ones.
 .expect_equal_res_matrices <- function(csv.expected, res.matrix) {
   res.expected = as.matrix(read.csv(csv.expected, check.names=FALSE))
-  expect_equal(dim(res.expected),dim(res.matrix))
-  expect_equal(colnames(res.expected), colnames(res.matrix))
+  testthat::expect_equal(dim(res.expected),dim(res.matrix))
+  testthat::expect_equal(colnames(res.expected), colnames(res.matrix))
   # compare values with rel. tolerance of 1e-6
   vec.expected = as.vector(unlist(res.expected))
   vec.matrix = as.vector(unlist(res.matrix))
   vec.rel.err = mapply(function(x,y) if (x == 0) abs(y) else abs((x-y)/x), vec.expected, vec.matrix)
   vec.zero = rep(0,prod(dim(res.expected)))
-  expect_equal(vec.rel.err, vec.zero, tolerance=1e-6)
+  testthat::expect_equal(vec.rel.err, vec.zero, tolerance=1e-6)
 }
 
 
@@ -37,7 +37,7 @@
 #' Plot model foodweb to PDF and test if PDF has same size as the reference.
 .expect_equal_pdf_size_foodweb <- function(model.list, expected.pdf, ...) {
   temp.pdf <- "temp_example_foodweb.pdf"
-  foodweb.plot(model.list$y.names, model.list$par, file=temp.pdf, ...)
+  streambugs::foodweb.plot(model.list$y.names, model.list$par, file=temp.pdf, ...)
   .expect_equal_pdf_size(temp.pdf, expected.pdf)
 }
 
@@ -49,7 +49,7 @@
     ref.pdf.size <- file.info(ref.pdf)$size
     temp.pdf.size <- file.info(temp.pdf)$size
     abstol = reltol*ref.pdf.size
-    expect_equal(ref.pdf.size, temp.pdf.size, tolerance=abstol)
+    testthat::expect_equal(ref.pdf.size, temp.pdf.size, tolerance=abstol)
   },
   finally={
     file.remove(temp.pdf)
@@ -66,17 +66,19 @@
 .expect_equal_dat_file <- function(res.list, expected.sysdef.dat) {
   # streambugs.get.sys.def
   sys.def <- withCallingHandlers(
-    streambugs.get.sys.def(y.names=res.list$args$y.names,
-                           par=res.list$args$par, inp=res.list$args$inp),
+    streambugs::streambugs.get.sys.def(
+        y.names=res.list$args$y.names,
+        par=res.list$args$par,
+        inp=res.list$args$inp),
     warning = .streambugs.sys.def.warning.handler
   )
   # streambugs.write.sys.def
   res.dat <- "temp_example_sysdef.dat"
-  streambugs.write.sys.def(sys.def, file=res.dat)
+  streambugs::streambugs.write.sys.def(sys.def, file=res.dat)
   # read both files to string and compare
   expected.dat.char <- .read.file.to.char(expected.sysdef.dat)
   tryCatch({
-    expect_equal(expected.dat.char, .read.file.to.char(res.dat))
+    testthat::expect_equal(expected.dat.char, .read.file.to.char(res.dat))
   },
   finally={
     file.remove(res.dat)

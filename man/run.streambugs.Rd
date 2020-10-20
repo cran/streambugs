@@ -4,10 +4,23 @@
 \alias{run.streambugs}
 \title{Run the streambugs ODE model}
 \usage{
-run.streambugs(y.names, times, par, inp = NA, C = FALSE,
-  file.def = NA, file.res = NA, file.add = NA,
-  return.res.add = FALSE, tout.add = NA, verbose = TRUE,
-  method = "lsoda", rtol = 1e-04, atol = 1e-04, ...)
+run.streambugs(
+  y.names,
+  times,
+  par,
+  inp = NA,
+  C = FALSE,
+  file.def = NA,
+  file.res = NA,
+  file.add = NA,
+  return.res.add = FALSE,
+  tout.add = NA,
+  verbose = TRUE,
+  method = "lsoda",
+  rtol = 1e-04,
+  atol = 1e-04,
+  ...
+)
 }
 \arguments{
 \item{y.names}{state variables names, either as a vector encoded in the form

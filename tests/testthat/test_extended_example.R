@@ -2,7 +2,7 @@ library(streambugs)
 context("streambugs")
 
 
-source_test_helpers()
+testthat::source_test_helpers()
 
 
 # Note: cannot put model simulation into helper_run_X_example.R because, then it also
@@ -17,8 +17,8 @@ if (!exists("extended.example.setup")) {
 test_that("check extended example feeding links count", {
     n.feeding.links.habitat.expected <- 290
     n.feeding.links.expected <- 1*6*n.feeding.links.habitat.expected
-    n.feeding.links <- count.feeding.links(example$model$y.names, example$model$par)
-    expect_equal(n.feeding.links.expected, n.feeding.links)
+    n.feeding.links <- streambugs::count.feeding.links(example$model$y.names, example$model$par)
+    testthat::expect_equal(n.feeding.links.expected, n.feeding.links)
 })
 
 

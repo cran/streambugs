@@ -4,8 +4,13 @@
 \alias{construct.statevariables}
 \title{Construct the streambugs ODE state variable names}
 \usage{
-construct.statevariables(Reaches, Habitats, POM = NULL, Algae = NULL,
-  Invertebrates = NULL)
+construct.statevariables(
+  Reaches,
+  Habitats,
+  POM = NULL,
+  Algae = NULL,
+  Invertebrates = NULL
+)
 }
 \arguments{
 \item{Reaches}{reach names character vector; duplicates are dropped}

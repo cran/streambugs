@@ -1,14 +1,14 @@
 ################################################################
 #
-# streambugs 1.0
-# =================
+# streambugs 1.2
+# ==============
 #
 # -------------------
 # auxiliary functions
 # -------------------
 #
 # creation:      08.09.2012
-# modifications: 25.10.2017
+# modifications: 08.04.2020
 #
 ################################################################
 
@@ -176,7 +176,7 @@ decode.statevarnames <- function(y.names)
     ind.fA[[reach]][["ind.1sthab"]] <- ind.1sthab
   }
 
-  # return splitted state variable names and reach, habibat, taxa and group names:
+  # return splitted state variable names and reach, habitat, taxa and group names:
 
   return(list(y.names     = y.names,
               y.reaches   = y.reaches,
@@ -188,50 +188,6 @@ decode.statevarnames <- function(y.names)
               taxa        = taxa,
               groups      = groups,
               ind.fA      = ind.fA))
-}
-
-
-# check parameter vector and input list for a vector of potential names:
-# ----------------------------------------------------------------------
-
-# Check the input list and the parameter vector for occurrence of a set
-# of input or parameter names. If the search is not successful use the
-# default value if provided.
-# Return a list with the index of the input and the value of the parameter.
-
-get.inpind.parval <- function(names,par,inp=NA,default=NA)
-{
-  # define variable:
-
-  ind <- NA
-  val <- NA
-
-  # search for inputs:
-
-  if ( is.list(inp) )
-  {
-    for ( i in 1:length(names) )
-    {
-      ind <- match(names[i],names(inp))
-      if ( !is.na(ind) ) break
-    }
-  }
-
-  # search for parameter values:
-
-  for ( i in 1:length(names) )
-  {
-    val <- par[names[i]]
-    if ( !is.na(val) ) break
-  }
-
-  # if not available, set to default (if available):
-
-  if ( is.na(val) ) val <- default
-
-  # return value:
-
-  return(list(inpind=ind,parval=val))
 }
 
 
@@ -253,11 +209,9 @@ get.inpind.parval <- function(names,par,inp=NA,default=NA)
 get.inpind.parval.global <- function(par.names,par,inp=NA,
                                      required=NA,defaults=NA)
 {
-  par.names <- unique(par.names)
-
   # get input indices:
 
-  inds <- matrix(nrow=0,ncol=2)       # matrix with indices of input and
+  inds <- matrix(0,nrow=0,ncol=2)       # matrix with indices of input and
   # of values to be updated by inputs
   if ( is.list(inp) )
   {
@@ -284,46 +238,15 @@ get.inpind.parval.global <- function(par.names,par,inp=NA,
     vals[ind.na] <- defaults[par.names[ind.na]]
   }
 
+  inds.vals <- list(inpinds=inds,parvals=vals)
+
   # check existence of required parameters:
 
-  for ( j in 1:length(required) )
-  {
-    if ( !is.na(required[j]) )
-    {
-      ind <- ( match(required[j],par.names) )
-      if ( is.na(ind) )
-      {
-        warning("Global parameter \"",required[j],
-                "\" specified to be required ",
-                "but not listed to be searched for",
-                sep="")
-      }
-      if ( is.na(vals[ind]) )
-      {
-        if ( nrow(inds) == 0 )
-        {
-          warning("Global parameter \"",required[j],
-                  "\" specified to be required ",
-                  "but not found in input or in parameter vector",
-                  sep="")
-        }
-        else
-        {
-          if ( sum(inds[,2]==ind) == 0 )
-          {
-            warning("Global parameter \"",required[j],
-                    "\" specified to be required ",
-                    "but not found in input or in parameter vector",
-                    sep="")
-          }
-        }
-      }
-    }
-  }
+  check.inpind.parval.required(inds.vals, required = required)
 
   # return list of matrix of input indices and vector of parameter values:
 
-  return(list(inpinds=inds,parvals=vals))
+  return(inds.vals)
 }
 
 get.inpind.parval.global.envcondtraits <- function(trait.names,par,inp=NA,
@@ -383,9 +306,9 @@ get.inpind.parval.global.envcondtraits <- function(trait.names,par,inp=NA,
       # of all parameters for all state variables:
     } else
     {
-      inds <- matrix(nrow=0,ncol=2)
+      inds <- matrix(0,nrow=0,ncol=2)
       colnames(inds) <- c("inpind","i")
-      vals <- matrix(NA,nrow=0,ncol=0)
+      vals <- matrix(0,nrow=0,ncol=0)
       res <- list(inpinds=inds,parvals=vals)
     }
 
@@ -418,87 +341,14 @@ get.inpind.parval.global.envcondtraits <- function(trait.names,par,inp=NA,
 get.inpind.parval.envcond.reach <- function(par.names,y.names,par,inp=NA,
                                             required=NA,defaults=NA)
 {
-  par.names <- unique(par.names)
-
-  # decode state variable names if the function was not already called
-  # with the decoded names:
-
   if ( !is.list(y.names) ) y.names <- decode.statevarnames(y.names)
 
-  # search values:
+  inds.vals <- get.inpind.parval.reach(
+    par.names, y.names, par, inp = inp, defaults = defaults)
 
-  inds <- matrix(nrow=0,ncol=3)
-  colnames(inds) <- c("inpind","i","j")
-  vals <- matrix(NA,nrow=length(y.names$y.names),ncol=length(par.names))
-  colnames(vals) <- par.names
-  rownames(vals) <- y.names$y.names
-  for ( j in 1:length(par.names) )
-  {
-    for ( i in 1:length(y.names$y.names) )
-    {
-      # define search order:
+  check.inpind.parval.required(inds.vals, required = required)
 
-      names <- c(paste(y.names$y.reaches[i],   # Reach_Par
-                       par.names[j],sep="_"),
-                 par.names[j])                 # Par
-
-      # get value:
-
-      inppar <- get.inpind.parval(names,par,inp,default=defaults[par.names[j]])
-      if ( !is.na(inppar$inpind) )
-      {
-        inds <- rbind(inds,c(inppar$inpind,i,j))
-      }
-      vals[i,j] <- inppar$parval
-    }
-  }
-
-  # check existence of required parameters:
-
-  for ( j.req in 1:length(required) )
-  {
-    if ( !is.na(required[j.req]) )
-    {
-      j <- ( match(required[j.req],par.names) )
-      if ( is.na(j) )
-      {
-        warning("Parameter \"",required[j.req],
-                "\" specified to be required ",
-                "but not listed to be searched for",
-                sep="")
-      }
-      for ( i in 1:length(y.names$y.names) )
-      {
-        if ( is.na(vals[i,j]) )
-        {
-          if ( nrow(inds) == 0 )
-          {
-            warning("Parameter \"",required[j.req],
-                    "\" specified to be required ",
-                    "but not found in input or in parameter vector ",
-                    "for state variable ",i,
-                    sep="")
-          }
-          else
-          {
-            if ( sum(inds[,2]==i & inds[,3]==j) == 0 )
-            {
-              warning("Parameter \"",required[j.req],
-                      "\" specified to be required ",
-                      "but not found in input or in parameter vector",
-                      "for state variable ",i,
-                      sep="")
-            }
-          }
-        }
-      }
-    }
-  }
-
-  # return list of matrices with input indices and values
-  # of all parameters for all state variables:
-
-  return(list(inpinds=inds,parvals=vals))
+  return(inds.vals)
 }
 
 
@@ -523,99 +373,20 @@ get.inpind.parval.envcond.reach <- function(par.names,y.names,par,inp=NA,
 get.inpind.parval.envcond.habitat <- function(par.names,y.names,par,inp=NA,
                                               required=NA,defaults=NA)
 {
-  par.names <- unique(par.names)
-
-  # decode state variable names if the function was not already called
-  # with the decoded names:
-
   if ( !is.list(y.names) ) y.names <- decode.statevarnames(y.names)
 
-  # search values:
+  inds.vals <- get.inpind.parval.reach.habitat(
+    par.names, y.names, par, inp = inp, defaults = defaults)
 
-  inds <- matrix(nrow=0,ncol=3)
-  colnames(inds) <- c("inpind","i","j")
-  vals <- matrix(NA,nrow=length(y.names$y.names),ncol=length(par.names))
-  colnames(vals) <- par.names
-  rownames(vals) <- y.names$y.names
-  for ( j in 1:length(par.names) )
-  {
-    for ( i in 1:length(y.names$y.names) )
-    {
-      # define search order:
-
-      names <- c(paste(y.names$y.reaches[i],   # Reach_Habitat_Par
-                       y.names$y.habitats[i],
-                       par.names[j],sep="_"),
-                 paste(y.names$y.habitats[i],  # Habitat_Par
-                       par.names[j],sep="_"),
-                 paste(y.names$y.reaches[i],   # Reach_Par
-                       par.names[j],sep="_"),
-                 par.names[j])                 # Par
-
-      # get value:
-
-      inppar <- get.inpind.parval(names,par,inp,default=defaults[par.names[j]])
-      if ( !is.na(inppar$inpind) )
-      {
-        inds <- rbind(inds,c(inppar$inpind,i,j))
-      }
-      vals[i,j] <- inppar$parval
-    }
-  }
-
-  # check existence of required parameters:
-
-  for ( j.req in 1:length(required) )
-  {
-    if ( !is.na(required[j.req]) )
-    {
-      j <- ( match(required[j.req],par.names) )
-      if ( is.na(j) )
-      {
-        warning("Parameter \"",required[j.req],
-                "\" specified to be required ",
-                "but not listed to be searched for",
-                sep="")
-      }
-      for ( i in 1:length(y.names$y.names) )
-      {
-        if ( is.na(vals[i,j]) )
-        {
-          if ( nrow(inds) == 0 )
-          {
-            warning("Parameter \"",required[j.req],
-                    "\" specified to be required ",
-                    "but not found in input or in parameter vector ",
-                    "for state variable ",i,
-                    sep="")
-          }
-          else
-          {
-            if ( sum(inds[,2]==i & inds[,3]==j) == 0 )
-            {
-              warning("Parameter \"",required[j.req],
-                      "\" specified to be required ",
-                      "but not found in input or in parameter vector",
-                      "for state variable ",i,
-                      sep="")
-            }
-          }
-        }
-      }
-    }
-  }
+  check.inpind.parval.required(inds.vals, required = required)
 
   # normalize parameter fA:
-
   if ( !is.na(match("fA",par.names)) )
   {
-    vals[,"fA"] <- calc.fA.norm(vals[,"fA"],y.names$ind.fA)
+    inds.vals$parvals[,"fA"] <- calc.fA.norm(inds.vals$parvals[,"fA"], y.names$ind.fA)
   }
 
-  # return list of matrices with input indices and values
-  # of all parameters for all state variables:
-
-  return(list(inpinds=inds,parvals=vals))
+  return(inds.vals)
 }
 
 # get values of habitat-(and reach-)depedent environmental conditions
@@ -670,9 +441,9 @@ get.inpind.parval.envcond.habitat.group <- function(group.names,y.names,par,inp=
 
     } else
     {
-      inds <- matrix(nrow=0,ncol=3)
+      inds <- matrix(0,nrow=0,ncol=3)
       colnames(inds) <- c("inpind","i","j")
-      vals <- matrix(NA,nrow=0,ncol=0)
+      vals <- matrix(0,nrow=0,ncol=0)
       res <- list(inpinds=inds,parvals=vals)
     }
 
@@ -706,116 +477,14 @@ get.inpind.parval.envcond.habitat.group <- function(group.names,y.names,par,inp=
 get.inpind.parval.initcondinput <- function(par.names,y.names,par,inp=NA,
                                             required=NA,defaults=NA)
 {
-  par.names <- unique(par.names)
-
-  # decode state variable names if the function was not already called
-  # with the decoded names:
-
   if ( !is.list(y.names) ) y.names <- decode.statevarnames(y.names)
 
-  # search values:
+  inds.vals <- get.inpind.parval.taxon.group.reach.habitat(
+    par.names, y.names, par, inp = inp, defaults = defaults)
 
-  inds <- matrix(nrow=0,ncol=3)
-  colnames(inds) <- c("inpind","i","j")
-  vals <- matrix(NA,nrow=length(y.names$y.names),ncol=length(par.names))
-  colnames(vals) <- par.names
-  rownames(vals) <- y.names$y.names
-  for ( j in 1:length(par.names) )
-  {
-    for ( i in 1:length(y.names$y.names) )
-    {
-      # define search order:
+  check.inpind.parval.required(inds.vals, required = required)
 
-      names <- c(paste(y.names$y.taxa[i],      # Taxon_Reach_Habitat_Par
-                       y.names$y.reaches[i],
-                       y.names$y.habitats[i],
-                       par.names[j],sep="_"),
-                 paste(y.names$y.groups[i],    # Group_Reach_Habitat_Par
-                       y.names$y.reaches[i],
-                       y.names$y.habitats[i],
-                       par.names[j],sep="_"),
-                 paste(y.names$y.taxa[i],      # Taxon_Habitat_Par
-                       y.names$y.habitats[i],
-                       par.names[j],sep="_"),
-                 paste(y.names$y.groups[i],    # Group_Habitat_Par
-                       y.names$y.habitats[i],
-                       par.names[j],sep="_"),
-                 paste(y.names$y.taxa[i],      # Taxon_Reach_Par
-                       y.names$y.reaches[i],
-                       par.names[j],sep="_"),
-                 paste(y.names$y.groups[i],    # Group_Reach_Par
-                       y.names$y.reaches[i],
-                       par.names[j],sep="_"),
-                 paste(y.names$y.taxa[i],      # Taxon_Par
-                       par.names[j],sep="_"),
-                 paste(y.names$y.groups[i],    # Group_Par
-                       par.names[j],sep="_"),
-                 paste(y.names$y.reaches[i],   # Reach_Habitat_Par
-                       y.names$y.habitats[i],
-                       par.names[j],sep="_"),
-                 paste(y.names$y.habitats[i],  # Habitat_Par
-                       par.names[j],sep="_"),
-                 paste(y.names$y.reaches[i],   # Reach_Par
-                       par.names[j],sep="_"),
-                 par.names[j])                 # Par
-
-      # get value:
-
-      inppar <- get.inpind.parval(names,par,inp,default=defaults[par.names[j]])
-      if ( !is.na(inppar$inpind) )
-      {
-        inds <- rbind(inds,c(inppar$inpind,i,j))
-      }
-      vals[i,j] <- inppar$parval
-    }
-  }
-
-  # check existence of required parameters:
-
-  for ( j.req in 1:length(required) )
-  {
-    if ( !is.na(required[j.req]) )
-    {
-      j <- ( match(required[j.req],par.names) )
-      if ( is.na(j) )
-      {
-        warning("Parameter \"",required[j.req],
-                "\" specified to be required ",
-                "but not listed to be searched for",
-                sep="")
-      }
-      for ( i in 1:length(y.names$y.names) )
-      {
-        if ( is.na(vals[i,j]) )
-        {
-          if ( nrow(inds) == 0 )
-          {
-            warning("Parameter \"",required[j.req],
-                    "\" specified to be required ",
-                    "but not found in input or in parameter vector ",
-                    "for state variable ",i,
-                    sep="")
-          }
-          else
-          {
-            if ( sum(inds[,2]==i & inds[,3]==j) == 0 )
-            {
-              warning("Parameter \"",required[j.req],
-                      "\" specified to be required ",
-                      "but not found in input or in parameter vector",
-                      "for state variable ",i,
-                      sep="")
-            }
-          }
-        }
-      }
-    }
-  }
-
-  # return list of matrices with input indices and values
-  # of all parameters for all state variables:
-
-  return(list(inpinds=inds,parvals=vals))
+  return(inds.vals)
 }
 
 
@@ -847,89 +516,14 @@ get.inpind.parval.initcondinput <- function(par.names,y.names,par,inp=NA,
 get.inpind.parval.taxaprop <- function(par.names,y.names,par,inp=NA,
                                        required=NA,defaults=NA)
 {
-  par.names <- unique(par.names)
-
-  # decode state variable names if the function was not already called
-  # with the decoded names:
-
   if ( !is.list(y.names) ) y.names <- decode.statevarnames(y.names)
 
-  # search values:
+  inds.vals <- get.inpind.parval.taxon.group(
+    par.names, y.names, par, inp = inp, defaults = defaults)
 
-  inds <- matrix(nrow=0,ncol=3)
-  colnames(inds) <- c("inpind","i","j")
-  vals <- matrix(NA,nrow=length(y.names$y.names),ncol=length(par.names))
-  colnames(vals) <- par.names
-  rownames(vals) <- y.names$y.names
-  for ( j in 1:length(par.names) )
-  {
-    for ( i in 1:length(y.names$y.names) )
-    {
-      # define search order:
+  check.inpind.parval.required(inds.vals, required = required)
 
-      names <- c(paste(y.names$y.taxa[i],      # Taxon_Par
-                       par.names[j],sep="_"),
-                 paste(y.names$y.groups[i],    # Group_Par
-                       par.names[j],sep="_"),
-                 par.names[j])                 # Par
-
-      # get value:
-
-      inppar <- get.inpind.parval(names,par,inp,default=defaults[par.names[j]])
-      if ( !is.na(inppar$inpind) )
-      {
-        inds <- rbind(inds,c(inppar$inpind,i,j))
-      }
-      vals[i,j] <- inppar$parval
-    }
-  }
-
-  # check existence of required parameters:
-
-  for ( j.req in 1:length(required) )
-  {
-    if ( !is.na(required[j.req]) )
-    {
-      j <- ( match(required[j.req],par.names) )
-      if ( is.na(j) )
-      {
-        warning("Parameter \"",required[j.req],
-                "\" specified to be required ",
-                "but not listed to be searched for",
-                sep="")
-      }
-      for ( i in 1:length(y.names$y.names) )
-      {
-        if ( is.na(vals[i,j]) )
-        {
-          if ( nrow(inds) == 0 )
-          {
-            warning("Parameter \"",required[j.req],
-                    "\" specified to be required ",
-                    "but not found in input or in parameter vector ",
-                    "for state variable ",i,
-                    sep="")
-          }
-          else
-          {
-            if ( sum(inds[,2]==i & inds[,3]==j) == 0 )
-            {
-              warning("Parameter \"",required[j.req],
-                      "\" specified to be required ",
-                      "but not found in input or in parameter vector",
-                      "for state variable ",i,
-                      sep="")
-            }
-          }
-        }
-      }
-    }
-  }
-
-  # return list of matrices with input indices and values
-  # of all parameters for all state variables:
-
-  return(list(inpinds=inds,parvals=vals))
+  return(inds.vals)
 }
 
 
@@ -1021,383 +615,15 @@ get.inpind.parval.taxaprop.traits <- function(trait.names,xval.pars=NA,y.names,p
 
     } else
     {
-      inds <- matrix(nrow=0,ncol=3)
+      inds <- matrix(0,nrow=0,ncol=3)
       colnames(inds) <- c("inpind","i","j")
-      vals <- matrix(NA,nrow=0,ncol=0)
+      vals <- matrix(0,nrow=0,ncol=0)
       res <- list(inpinds=inds,parvals=vals)
     }
     res.traits[[trait.names[i]]] <- res
   }
 
   return(res.traits)
-}
-
-
-# get stoichiometric coefficients for "taxon-based" processes:
-# ------------------------------------------------------------
-
-# Returns a list of stoichiometric vectors of processes of the type given
-# by the character string "proc".
-# The list elements are labelled according to the taxon labelling the process,
-# the stoichiometric vectors contain stoichiometric coefficients of the taxa/
-# substances indicated by their labels.
-
-get.par.stoich.taxon <- function(proc,par)
-{
-  par.names <- names(par)
-  par.splitted <- strsplit(par.names,split="_")
-  stoich <- list()
-  for ( i in 1:length(par) )
-  {
-    if ( par.splitted[[i]][1] == proc )
-    {
-      if ( length(par.splitted[[i]]) < 3 )
-      {
-        warning("Parameter name \"",par.names[i],"\" starts with \"",
-                proc,"\""," but does not have three components")
-      }
-      else
-      {
-        if ( length(stoich[[par.splitted[[i]][2]]]) == 0 )
-        {
-          stoich[[par.splitted[[i]][2]]] <- numeric(0)
-        }
-        stoich[[par.splitted[[i]][2]]][par.splitted[[i]][3]] <- par[i]
-      }
-    }
-  }
-  return(stoich)
-}
-
-
-# get stoichiometric coefficients for food web processes:
-# -------------------------------------------------------
-
-# Returns a list of lists of stoichiometric vectors of food web processes
-# of the type given by the character string "proc".
-# The list elements are labelled according to the lead taxon labelling the
-# process (typically the consumer), the list elements of the lower-level
-# lists are labelled according to the second taxon characterizing the process
-# (typically the food). The stoichiometric vectors contain stoichiometric
-# coefficients of the taxa/substances indicated by their labels.
-
-get.par.stoich.web <- function(proc,par)
-{
-  par.names <- names(par)
-  par.splitted <- strsplit(par.names,split="_")
-  stoich <- list()
-  for ( i in 1:length(par) )
-  {
-    if ( par.splitted[[i]][1] == proc )
-    {
-      if ( length(par.splitted[[i]]) < 4 )
-      {
-        warning("Parameter name \"",par.names[i],"\" starts with \"",
-                proc,"\""," but does not have four components")
-      }
-      else
-      {
-        if ( length(stoich[[par.splitted[[i]][2]]]) == 0 )
-        {
-          stoich[[par.splitted[[i]][2]]] <- list()
-        }
-        if ( length(stoich[[par.splitted[[i]][2]]][[par.splitted[[i]][3]]]) == 0 )
-        {
-          stoich[[par.splitted[[i]][2]]][[par.splitted[[i]][3]]] <- numeric(0)
-        }
-        stoich[[par.splitted[[i]][2]]][[par.splitted[[i]][3]]][par.splitted[[i]][4]] <- par[i]
-      }
-    }
-  }
-  return(stoich)
-}
-
-
-# get kinetic parameters of "taxon-based" process:
-# ------------------------------------------------
-
-# Returns a labelled vector of the parameters.
-
-get.inpind.parval.proc1 <- function(par.names,taxon,group,reach,habitat,
-                                    par,inp=NA,required=NA,defaults=NA)
-{
-  par.names <- unique(par.names)
-
-  inds <- matrix(nrow=0,ncol=2)
-  colnames(inds) <- c("inpind","i")
-  vals <- rep(NA,length(par.names))
-  names(vals) <- par.names
-  for ( j in 1:length(par.names) )
-  {
-    # define search order:
-
-    names <- c(paste(taxon,                   # Taxon_Reach_Habitat_Par
-                     reach,
-                     habitat,
-                     par.names[j],sep="_"),
-               paste(group,                   # Group_Reach_Habitat_Par
-                     reach,
-                     habitat,
-                     par.names[j],sep="_"),
-               paste(taxon,                   # Taxon_Habitat_Par
-                     habitat,
-                     par.names[j],sep="_"),
-               paste(group,                   # Group_Habitat_Par
-                     habitat,
-                     par.names[j],sep="_"),
-               paste(taxon,                   # Taxon_Reach_Par
-                     reach,
-                     par.names[j],sep="_"),
-               paste(group,                   # Group_Reach_Par
-                     reach,
-                     par.names[j],sep="_"),
-               paste(taxon,                   # Taxon_Par
-                     par.names[j],sep="_"),
-               paste(group,                   # Group_Par
-                     par.names[j],sep="_"),
-               paste(reach,                   # Reach_Habitat_Par
-                     habitat,
-                     par.names[j],sep="_"),
-               paste(habitat,                 # Habitat_Par
-                     par.names[j],sep="_"),
-               paste(reach,                   # Reach_Par
-                     par.names[j],sep="_"),
-               paste(par.names[j],sep="_"))   # Par
-
-    # get value:
-
-    inppar <- get.inpind.parval(names,par,inp,default=defaults[par.names[j]])
-    if ( !is.na(inppar$inpind) )
-    {
-      inds <- rbind(inds,c(inppar$inpind,j))
-    }
-    vals[j] <- inppar$parval
-  }
-
-  # check existence of required parameters:
-
-  for ( j in 1:length(required) )
-  {
-    if ( !is.na(required[j]) )
-    {
-      ind <- ( match(required[j],par.names) )
-      if ( is.na(ind) )
-      {
-        warning("Parameter \"",required[j],
-                "\" specified to be required ",
-                "but not listed to be searched for",
-                sep="")
-      }
-      if ( is.na(vals[ind]) )
-      {
-        if ( nrow(inds) == 0 )
-        {
-          warning("Parameter \"",required[j],
-                  "\" specified to be required ",
-                  "but not found in input or in parameter vector ",
-                  "for taxon \"",taxon,"\" in habitat \"",habitat,
-                  "\" of reach \"",reach,"\"",sep="")
-        }
-        else
-        {
-          if ( sum(inds[,2]==ind) == 0 )
-          {
-            warning("Parameter \"",required[j],
-                    "\" specified to be required ",
-                    "but not found in input or in parameter vector ",
-                    "for taxon \"",taxon,"\" in habitat \"",habitat,
-                    "\" of reach \"",reach,"\"",sep="")
-          }
-        }
-      }
-    }
-  }
-
-  return(list(inpinds=inds,parvals=vals))
-}
-
-
-# get kinetic parameters of food web process:
-# -------------------------------------------
-
-# Returns a list of matrixes of input indices and parameter vectors for each "food".
-
-get.inpind.parval.proc2 <- function(par.names,taxon1,group1,taxa2,groups2,reach,habitat,
-                                    par,inp=NA,required=NA,defaults=NA)
-{
-  par.names <- unique(par.names)
-
-  # search values:
-
-  par.kin <- list()
-  for ( i in 1:length(taxa2) )
-  {
-    inds <- matrix(nrow=0,ncol=2)
-    colnames(inds) <- c("inpind","i")
-    vals <- rep(NA,length(par.names))
-    names(vals) <- par.names
-    for ( j in 1:length(par.names) )
-    {
-      # define search order:
-
-      names <- c(paste(taxon1,                  # Taxon1_Taxon2_Reach_Habitat_Par
-                       taxa2[i],
-                       reach,
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Taxon2_Reach_Habitat_Par
-                       taxa2[i],
-                       reach,
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Group2_Reach_Habitat_Par
-                       groups2[i],
-                       reach,
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Group2_Reach_Habitat_Par
-                       groups2[i],
-                       reach,
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Taxon2_Habitat_Par
-                       taxa2[i],
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Taxon2_Habitat_Par
-                       taxa2[i],
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Group2_Habitat_Par
-                       groups2[i],
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Group2_Habitat_Par
-                       groups2[i],
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Taxon2_Reach_Par
-                       taxa2[i],
-                       reach,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Taxon2_Reach_Par
-                       taxa2[i],
-                       reach,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Group2_Reach_Par
-                       groups2[i],
-                       reach,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Group2_Reach_Par
-                       groups2[i],
-                       reach,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Taxon2_Par
-                       taxa2[i],
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Taxon2_Par
-                       taxa2[i],
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Group2_Par
-                       groups2[i],
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Group2_Par
-                       groups2[i],
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Reach_Habitat_Par
-                       reach,
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Reach_Habitat_Par
-                       reach,
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Habitat_Par
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Habitat_Par
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Reach_Par
-                       reach,
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Reach_Par
-                       reach,
-                       par.names[j],sep="_"),
-                 paste(taxon1,                  # Taxon1_Par
-                       par.names[j],sep="_"),
-                 paste(group1,                  # Group1_Par
-                       par.names[j],sep="_"),
-                 paste(reach,                   # Reach_Habitat_Par
-                       habitat,
-                       par.names[j],sep="_"),
-                 paste(habitat,                 # Habitat_Par
-                       par.names[j],sep="_"),
-                 paste(reach,                   # Reach_Par
-                       par.names[j],sep="_"),
-                 paste(par.names[j],sep="_"))   # Par
-
-      # get value:
-
-      inppar <- get.inpind.parval(names,par,inp,default=defaults[par.names[j]])
-      if ( !is.na(inppar$inpind) )
-      {
-        inds <- rbind(inds,c(inppar$inpind,j))
-      }
-      vals[j] <- inppar$parval
-    }
-    par.kin[[i]] <- list(inpinds=inds,parvals=vals)
-  }
-  names(par.kin) <- taxa2
-
-  # check existence of required parameters:
-
-  for ( j.req in 1:length(required) )
-  {
-    if ( !is.na(required[j.req]) )
-    {
-      j <- ( match(required[j.req],par.names) )
-      if ( is.na(j) )
-      {
-        warning("Parameter \"",required[j.req],
-                "\" specified to be required ",
-                "but not listed to be searched for",
-                sep="")
-      }
-      for ( i in 1:length(taxa2) )
-      {
-        if ( is.na(par.kin[[i]]$parvals[j]) )
-        {
-          if ( nrow(par.kin[[i]]$inpinds) == 0 )
-          {
-            warning("Parameter \"",required[j.req],
-                    "\" specified to be required ",
-                    "but not found in input or in parameter vector ",
-                    "for taxon1 \"",taxon1,"\" and taxon2 \"",taxa2[i],
-                    "\" in habitat \"",habitat,"\" of reach \"",reach,"\"",
-                    sep="")
-          }
-          else
-          {
-            if ( sum(par.kin[[i]]$inpinds[,2]==j) == 0 )
-            {
-              warning("Parameter \"",required[j.req],
-                      "\" specified to be required ",
-                      "but not found in input or in parameter vector",
-                      "for taxon1 \"",taxon1,"\" and taxon2 \"",taxa2[i],
-                      "\" in habitat \"",habitat,"\" of reach \"",reach,"\"",
-                      sep="")
-            }
-          }
-        }
-      }
-    }
-  }
-
-  # return list of lists of matrices with input indices and
-  # parameter vectors for all state variables:
-
-  return(par.kin)
 }
 
 
@@ -1533,25 +759,18 @@ streambugs.get.sys.def <- function(y.names,par,inp=NA)
     par         = par,
     inp         = inp)
 
-  # get initial conditions:
-  # -----------------------
+  # get initial conditions and inputs:
+  # ----------------------------------
 
-  par.initcond <- get.inpind.parval.initcondinput(
-    par.names = "Dini",
+  par.initcondinput <- get.inpind.parval.initcondinput(
+    par.names = c("Dini", "Input"),
     y.names   = y.names,
     par       = par,
     inp       = inp,
-    defaults  = c(Dini=0))
+    defaults  = c(Dini=0, Input=0))
 
-  # get input:
-  # ----------
-
-  par.input <- get.inpind.parval.initcondinput(
-    par.names = "Input",
-    y.names   = y.names,
-    par       = par,
-    inp       = inp,
-    defaults  = c(Input=0))
+  par.initcond <- get.single.par.inpind.parval(par.initcondinput, "Dini")
+  par.input <- get.single.par.inpind.parval(par.initcondinput, "Input")
 
   # get taxa properties:
   # --------------------
@@ -1610,11 +829,8 @@ streambugs.get.sys.def <- function(y.names,par,inp=NA)
                                          "KI",
                                          "KP",
                                          "KN"))
-  par.stoich.taxon <- list()
-  for ( proc in names(kinparnames.taxon) )
-  {
-    par.stoich.taxon[[proc]] <- get.par.stoich.taxon(proc,par)
-  }
+  par.stoich.taxon <- get.par.stoich.list(
+    par, names(kinparnames.taxon), get.par.stoich.taxon)
 
   # food web processes:
   # -------------------
@@ -1629,166 +845,15 @@ streambugs.get.sys.def <- function(y.names,par,inp=NA)
                                                      "Kfood",
                                                      "q"),
                                           taxa2  = c("Pref")))
-  par.stoich.web <- list()
-  for ( proc in names(kinparnames.web) )
-  {
-    par.stoich.web[[proc]] <- get.par.stoich.web(proc,par)
-  }
+  par.stoich.web <- get.par.stoich.list(
+    par, names(kinparnames.web), get.par.stoich.web)
 
   # get kinetic parameters of processes:
   # ------------------------------------
-
-  ind.1sthabinreach <- numeric(0)
-  for ( i in 1:length(y.names$ind.fA) )
-  {
-    ind.1sthabinreach <-
-      c(ind.1sthabinreach,
-        y.names$ind.fA[[i]]$ind.reach[y.names$ind.fA[[1]]$ind.1sthab])
-  }
-  par.proc.taxon <- list()
-  par.proc.web   <- list()
-  for ( i in 1:length(y.names$y.names) )
-  {
-    reach   <- y.names$y.reaches[i]
-    habitat <- y.names$y.habitats[i]
-    taxon   <- y.names$y.taxa[i]
-    group   <- y.names$y.groups[i]
-
-    # taxon-based processes:
-
-    par.proc.taxon[[i]] <- list()
-    for ( proc in names(kinparnames.taxon) )
-    {
-      stoich <- par.stoich.taxon[[proc]][[taxon]]
-      if ( length(stoich) > 0 )
-      {
-        par.proc.taxon[[i]][[proc]] <-
-          get.inpind.parval.proc1(par.names = kinparnames.taxon[[proc]],
-                                  taxon     = taxon,
-                                  group     = group,
-                                  reach     = reach,
-                                  habitat   = habitat,
-                                  par       = par,
-                                  inp       = inp,
-                                  required  = kinparnames.taxon[[proc]],
-                                  defaults  = c(fgrotax=1))
-        stoichmat <- matrix(NA,nrow=2,ncol=length(stoich))
-        colnames(stoichmat) <- names(stoich)
-        rownames(stoichmat) <- c("statevar","coeff")
-        stoichmat[2,] <- stoich
-        for ( j in 1:length(stoich) )
-        {
-          ind.statevar <- y.names$y.taxa == names(stoich)[j] &
-            y.names$y.reaches == reach &
-            y.names$y.habitats == habitat
-          if ( sum(ind.statevar) > 1 )
-          {
-            warning("state vector contains multiple entries for",
-                    "(Reach,Habitat,Taxon) = (",reach,",",habitat,
-                    ",",names(stoich)[j],")",sep="")
-          }
-          else
-          {
-            if ( sum(ind.statevar) == 0 )
-            {
-              warning("state vector has no entry for",
-                      "(Reach,Habitat,Taxon) = (",reach,",",habitat,
-                      ",",names(stoich)[j],")",sep="")
-            }
-            else
-            {
-              stoichmat[1,j] <- which(ind.statevar)
-            }
-          }
-        }
-        par.proc.taxon[[i]][[proc]]$stoich <- stoichmat
-      }
-    }
-
-    # food web processes:
-
-    par.proc.web[[i]] <- list()
-    for ( proc in names(kinparnames.web) )
-    {
-      taxa1 <- taxon
-      if ( !is.na(match(i,ind.1sthabinreach)) ) taxa1 <- c(taxa1,"Fish")
-      for ( taxon1 in taxa1 )
-      {
-        stoich <- par.stoich.web[[proc]][[taxon1]]
-        if ( length(stoich) > 0 )
-        {
-          # get parameter values:
-
-          taxa2     <- names(stoich)
-          ind1      <- y.names$y.reaches == reach & y.names$y.habitats == habitat
-          ind2      <- match(taxa2,y.names$y.taxa[ind1])
-          groups2   <- y.names$y.groups[ind1][ind2]
-          groups2   <- ifelse(is.na(groups2),"",groups2)
-
-          proc1 <-
-            get.inpind.parval.proc1(par.names = kinparnames.web[[proc]][["taxon1"]],
-                                    taxon     = taxon1,
-                                    group     = group,
-                                    reach     = reach,
-                                    habitat   = habitat,
-                                    par       = par,
-                                    inp       = inp,
-                                    required  = kinparnames.web[[proc]][["taxon1"]],
-                                    defaults  = c(fgrotax=1,q=1))
-          proc2 <-
-            get.inpind.parval.proc2(par.names = kinparnames.web[[proc]][["taxa2"]],
-                                    taxon1    = taxon1,
-                                    group1    = group,
-                                    taxa2     = taxa2,
-                                    groups2   = groups2,
-                                    reach     = reach,
-                                    habitat   = habitat,
-                                    par       = par,
-                                    inp       = inp,
-                                    required  = kinparnames.web[[proc]][["taxa2"]],
-                                    defaults  = c(Pref=1))
-          par.proc.web[[i]][[proc]] <- list(inpinds = proc1$inpinds,
-                                            parvals = proc1$parvals,
-                                            taxa2   = proc2)
-          for ( k in 1:length(taxa2) )
-          {
-            stoichmat <- matrix(NA,nrow=2,ncol=length(stoich[[k]]))
-            colnames(stoichmat) <- names(stoich[[k]])
-            rownames(stoichmat) <- c("statevar","coeff")
-            stoichmat[2,] <- stoich[[k]]
-            for ( j in 1:length(stoich[[k]]) )
-            {
-              ind.statevar <- y.names$y.taxa == names(stoich[[k]])[j] &
-                y.names$y.reaches == reach &
-                y.names$y.habitats == habitat
-              if ( sum(ind.statevar) > 1 )
-              {
-                warning("state vector contains multiple entries for",
-                        "(Reach,Habitat,Taxon) = (",reach,",",habitat,
-                        ",",names(stoich)[j],")",sep="")
-              }
-              else
-              {
-                if ( sum(ind.statevar) == 0 )
-                {
-                  warning("state vector has no entry for",
-                          "(Reach,Habitat,Taxon) = (",reach,",",habitat,
-                          ",",names(stoich)[j],")",sep="")
-                }
-                else
-                {
-                  stoichmat[1,j] <- which(ind.statevar)
-                }
-              }
-            }
-            par.proc.web[[i]][[proc]][["taxa2"]][[taxa2[k]]]$stoich <- stoichmat
-          }
-        }
-      }
-    }
-  }
-  names(par.proc.taxon) <- y.names$y.names
-  names(par.proc.web)   <- y.names$y.names
+  par.proc.taxon <- get.par.proc.taxon(
+    y.names, par, inp, kinparnames.taxon, par.stoich.taxon)
+  par.proc.web <- get.par.proc.web(
+    y.names, par, inp, kinparnames.web, par.stoich.web)
 
   # return list of system definition:
   # ---------------------------------
@@ -1811,6 +876,14 @@ streambugs.get.sys.def <- function(y.names,par,inp=NA)
               par.proc.web              = par.proc.web))
 }
 
+get.single.par.inpind.parval <- function(inpind.parval, par.name) {
+  par.idx <- which(colnames(inpind.parval$parvals)==par.name)
+  par.inpind.parval <- list(
+    inpinds = inpind.parval$inpinds[inpind.parval$inpinds[,"j"]==par.idx,, drop=FALSE],
+    parvals = inpind.parval$parvals[, par.idx, drop=FALSE])
+  par.inpind.parval$inpinds[, "j"] = 1
+  par.inpind.parval
+}
 
 # function to write the system definition to a file:
 # --------------------------------------------------

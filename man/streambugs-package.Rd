@@ -14,8 +14,8 @@ examples.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://www.eawag.ch/en/department/siam/projects/streambugs/}
-  \item Report bugs at \url{https://gitlab.com/NeleSchuwirth/streambugs/issues}
+  \item \url{https://www.eawag.ch/en/department/siam/projects/streambugs/}
+  \item Report bugs at \url{https://gitlab.com/NeleSchuwirth/streambugs/-/issues}
 }
 
 }

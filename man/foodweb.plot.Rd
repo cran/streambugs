@@ -4,10 +4,24 @@
 \alias{foodweb.plot}
 \title{Plot the streambugs "foodweb" graph.}
 \usage{
-foodweb.plot(y.names, par, file = NA, cex = 1, font = 1,
-  title = "", lwd = 1, bg = colors()[1], lcol = colors()[555],
-  ncrit = 8, lcrit = 20, survivals = NA, observed = NA,
-  texts = TRUE, pointcol = FALSE, ...)
+foodweb.plot(
+  y.names,
+  par,
+  file = NA,
+  cex = 1,
+  font = 1,
+  title = "",
+  lwd = 1,
+  bg = colors()[1],
+  lcol = colors()[555],
+  ncrit = 8,
+  lcrit = 20,
+  survivals = NA,
+  observed = NA,
+  texts = TRUE,
+  pointcol = FALSE,
+  ...
+)
 }
 \arguments{
 \item{y.names}{same as \code{y.names} in \code{\link{run.streambugs}}}
