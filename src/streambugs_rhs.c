@@ -347,11 +347,13 @@ double get_value_vector(const char* name, struct inpparvector* s)
     int ind = get_index(name,(*s).parnames,(*s).n_par);
     if ( ind < 0 )
     {
-       sprintf(buffer,"Parameter %s not found\n",name);
-       Rf_error(buffer);
+
+      snprintf(buffer, sizeof(buffer),"Parameter %s not found\n",name);
+
+      Rf_error(buffer);
+	       }
+	return( (*s).parvals[ind] );
     }
-    return( (*s).parvals[ind] );
-}
 
 
 int exist_value_matrix(const char* name, struct inpparmatrix* s, int i)
@@ -368,8 +370,8 @@ double get_value_matrix(const char* name, struct inpparmatrix* s, int i)
     int ind = get_index(name,(*s).parnames,(*s).n_par);
     if ( ind < 0 )
     {
-       sprintf(buffer,"Parameter %s not found\n",name);
-       Rf_error(buffer);
+      snprintf(buffer, sizeof(buffer),"Parameter %s not found\n",name);
+      Rf_error(buffer);
     }
     return( (*s).parvals[(*s).n_row*ind+i] );
 }
@@ -380,8 +382,8 @@ void get_stoich(const char* name, struct stoichvector* s, int* indy, double* coe
    int ind = get_index(name,(*s).names,(*s).n);
    if ( ind < 0 )
    {
-      sprintf(buffer,"Stoichiometric coefficient for %s not found\n",name);
-      Rf_error(buffer);
+     snprintf(buffer, sizeof(buffer),"Stoichiometric coefficient for %s not found\n",name);
+     Rf_error(buffer);
    }
    *indy  = (*s).inds[ind];
    *coeff = (*s).coeff[ind];
@@ -457,7 +459,7 @@ void streambugs_create_input(int*    ind,
 }
 
 
-void streambugs_delete_inputs()
+void streambugs_delete_inputs(void)
 {
    if ( g_ninp > 0 )
    {
@@ -489,7 +491,7 @@ void streambugs_create_parglobal(int*    n_inp,
 }
 
 
-void streambugs_delete_parglobal()
+void streambugs_delete_parglobal(void)
 {
    delete_inpparvector(g_parglobal);
 }
@@ -528,7 +530,7 @@ void streambugs_create_parglobalenvtrait(int*    ind,
 }
 
 
-void streambugs_delete_parglobalenvtraits()
+void streambugs_delete_parglobalenvtraits(void)
 {
    delete_inpparvectorlist(g_parglobalenvtraits);
 }
@@ -550,7 +552,7 @@ void streambugs_create_parenvcondreach(int*    n_inp,
 }
 
 
-void streambugs_delete_parenvcondreach()
+void streambugs_delete_parenvcondreach(void)
 {
    delete_inpparmatrix(g_parenvcondreach);
 }
@@ -572,7 +574,7 @@ void streambugs_create_parenvcondhabitat(int*    n_inp,
 }
 
 
-void streambugs_delete_parenvcondhabitat()
+void streambugs_delete_parenvcondhabitat(void)
 {
    delete_inpparmatrix(g_parenvcondhabitat);
 }
@@ -613,7 +615,7 @@ void streambugs_create_parenvcondhabitatgroup(int*    ind,
 }
 
 
-void streambugs_delete_parenvcondhabitatgroup()
+void streambugs_delete_parenvcondhabitatgroup(void)
 {
    delete_inpparmatrixlist(g_parenvcondhabitatgroup);
 }
@@ -635,7 +637,7 @@ void streambugs_create_parinitcond(int*    n_inp,
 }
 
 
-void streambugs_delete_parinitcond()
+void streambugs_delete_parinitcond(void)
 {
    delete_inpparmatrix(g_parinitcond);
 }
@@ -657,7 +659,7 @@ void streambugs_create_parinput(int*    n_inp,
 }
 
 
-void streambugs_delete_parinput()
+void streambugs_delete_parinput(void)
 {
    delete_inpparmatrix(g_parinput);
 }
@@ -679,7 +681,7 @@ void streambugs_create_partaxapropdirect(int*    n_inp,
 }
 
 
-void streambugs_delete_partaxapropdirect()
+void streambugs_delete_partaxapropdirect(void)
 {
    delete_inpparmatrix(g_partaxapropdirect);
 }
@@ -720,7 +722,7 @@ void streambugs_create_partaxaproptrait(int*    ind,
 }
 
 
-void streambugs_delete_partaxaproptraits()
+void streambugs_delete_partaxaproptraits(void)
 {
    delete_inpparmatrixlist(g_partaxaproptraits);
 }
@@ -890,7 +892,7 @@ void streambugs_create_procwebtaxon(int*    iy,
 }
 
 
-void streambugs_delete_processes()
+void streambugs_delete_processes(void)
 {
    if ( g_ny > 0 )
    {
@@ -1863,8 +1865,8 @@ Rprintf("i = %i, r_prod = %f\n",i+1,r_prod);
            {
               // MR, bug fix
               // sprintf("Unknown process: %s",g_proctaxon[i].procs[j].name);
-              sprintf(buffer, "Unknown process: %s", g_proctaxon[i].procs[j].name);
-              Rf_error(buffer);
+	     snprintf(buffer, sizeof(buffer), "Unknown process: %s", g_proctaxon[i].procs[j].name);
+	     Rf_error(buffer);
            }
            }
            }
@@ -1925,7 +1927,7 @@ Rprintf("i = %i, fcurrent = %f, ftempmax = %f, fmicrohab = %f\n",
                                                     (*g_procweb[i].webprocs[j].procs[k].stoich).n);
                     if ( ind_food_stoich < 0 )
                     {
-                       sprintf(buffer,"Cons process of state var %i on %s: food not found in stoich",
+		      snprintf(buffer, sizeof(buffer),"Cons process of state var %i on %s: food not found in stoich",
                                i+1,g_procweb[i].webprocs[j].procs[k].name);
                        Rf_error(buffer);
                     }
@@ -2036,7 +2038,7 @@ Rprintf("i = %i, r_cons_tot = %f, sum_food = %f, sum_food_pref = %f\n",
                                                     (*g_procweb[i].webprocs[j].procs[k].stoich).n);
                     if ( ind_food_stoich < 0 )
                     {
-                       sprintf(buffer,"Cons process of state var %i on %s: food not found in stoich",
+		      snprintf(buffer, sizeof(buffer),"Cons process of state var %i on %s: food not found in stoich",
                                i+1,g_procweb[i].webprocs[j].procs[k].name);
                        Rf_error(buffer);
                     }
@@ -2099,8 +2101,8 @@ Rprintf("i = %i, r_fishpred_tot = %f, sum_food = %f, sum_food_pref = %f\n",
            }
            else
            {
-              sprintf(buffer,"Unknown process: %s",g_procweb[i].webprocs[j].name);
-              Rf_error(buffer);
+	     snprintf(buffer, sizeof(buffer),"Unknown process: %s",g_procweb[i].webprocs[j].name);
+	     Rf_error(buffer);
            }
            }
         }
@@ -2123,4 +2125,3 @@ Rprintf("i = %i, ydot = %f\n",i+1,ydot[i]);
   }
   free(y_original);
 }
-

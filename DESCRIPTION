@@ -2,8 +2,8 @@ Package: streambugs
 Type: Package
 Title: Parametric Ordinary Differential Equations Model of Growth,
         Death, and Respiration of Macroinvertebrate and Algae Taxa
-Version: 1.2
-Date: 2020-10-20
+Version: 1.3
+Date: 2023-01-23
 Author: Nele Schuwirth, Peter Reichert, Mikolaj Rybinski
 Maintainer: Nele Schuwirth <nele.schuwirth@eawag.ch>
 Description: Numerically solve and plot solutions of a parametric ordinary
@@ -22,10 +22,10 @@ License: GPL-3
 Depends: R (>= 3.5.0)
 Imports: deSolve (>= 1.20)
 Suggests: testthat
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Encoding: UTF-8
 NeedsCompilation: yes
 SystemRequirements: C99
-Packaged: 2020-10-20 15:55:47 UTC; schuwine
+Packaged: 2023-01-27 09:30:12 UTC; scheidan
 Repository: CRAN
-Date/Publication: 2020-10-20 16:50:03 UTC
+Date/Publication: 2023-01-27 15:00:02 UTC

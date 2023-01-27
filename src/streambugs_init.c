@@ -42,18 +42,18 @@ extern void streambugs_create_procwebtaxon(void *, void *, void *, void *,
                                            void *, void *, void *, void *,
                                            void *, void *, void *, void *,
                                            void *);
-extern void streambugs_delete_fA();
-extern void streambugs_delete_inputs();
-extern void streambugs_delete_parenvcondhabitat();
-extern void streambugs_delete_parenvcondhabitatgroup();
-extern void streambugs_delete_parenvcondreach();
-extern void streambugs_delete_parglobal();
-extern void streambugs_delete_parglobalenvtraits();
-extern void streambugs_delete_parinitcond();
-extern void streambugs_delete_parinput();
-extern void streambugs_delete_partaxapropdirect();
-extern void streambugs_delete_partaxaproptraits();
-extern void streambugs_delete_processes();
+extern void streambugs_delete_fA(int *);
+extern void streambugs_delete_inputs(void);
+extern void streambugs_delete_parenvcondhabitat(void);
+extern void streambugs_delete_parenvcondhabitatgroup(void);
+extern void streambugs_delete_parenvcondreach(void);
+extern void streambugs_delete_parglobal(void);
+extern void streambugs_delete_parglobalenvtraits(void);
+extern void streambugs_delete_parinitcond(void);
+extern void streambugs_delete_parinput(void);
+extern void streambugs_delete_partaxapropdirect(void);
+extern void streambugs_delete_partaxaproptraits(void);
+extern void streambugs_delete_processes(void);
 extern void streambugs_init_debug(void *);
 
 /* implicit .C calls via deSolve */
