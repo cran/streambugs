@@ -31,7 +31,7 @@ get.par.trait.cond <- function(par.taxaprop.traits,
           
           # exponential transformation:
           
-          par.trait.cond[i,"fsapro"] <- exp.transform(f.sap.i.untrans,
+          par.trait.cond[i,"fsapro"] <- exp_transform(f.sap.i.untrans,
                                                       intercept=par["fsapro_intercept"],
                                                       curv=par["fsapro_curv"])
         } else warning("saprowqclass of", i ,"is NA"   )        
@@ -69,7 +69,7 @@ get.par.trait.cond <- function(par.taxaprop.traits,
           
           # exponential transformation:
           
-          par.trait.cond[i,"forgmicropoll"] <- exp.transform(f.o.i.untrans,
+          par.trait.cond[i,"forgmicropoll"] <- exp_transform(f.o.i.untrans,
                                                              intercept=par["forgmicropoll_intercept"],
                                                              curv=par["forgmicropoll_curv"])
           
@@ -108,7 +108,7 @@ get.par.trait.cond <- function(par.taxaprop.traits,
           
           # exponential transformation:
           
-          par.trait.cond[i,"fcurrent"] <- exp.transform(f.cur.i.untrans,
+          par.trait.cond[i,"fcurrent"] <- exp_transform(f.cur.i.untrans,
                                                         intercept=par["fcurrent_intercept"],
                                                         curv=par["fcurrent_curv"])
           
@@ -148,7 +148,7 @@ get.par.trait.cond <- function(par.taxaprop.traits,
           
           # exponential transformation:
           
-          par.trait.cond[i,"ftempmax"] <- exp.transform(f.temp.i.untrans,
+          par.trait.cond[i,"ftempmax"] <- exp_transform(f.temp.i.untrans,
                                                         intercept=par["ftempmax_intercept"],
                                                         curv=par["ftempmax_curv"])
           
@@ -196,7 +196,7 @@ get.par.trait.cond <- function(par.taxaprop.traits,
         { 
           # exponential transformation of affinity scores:
           
-          m.trait.trans <- exp.transform(m.trait.untrans,
+          m.trait.trans <- exp_transform(m.trait.untrans,
                                          intercept=par["fmicrohab_intercept"],
                                          curv=par["fmicrohab_curv"])
           

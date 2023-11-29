@@ -1544,7 +1544,7 @@ calculate.additional.output <- function(res,par,inp,file.add=NA,tout.add=NA)
 }
 
 
-exp.transform <- function(x,intercept=0,curv=0)
+exp_transform <- function(x,intercept=0,curv=0)
 {
   #!if curv > 0 and intercept <1: function is curved to the right, if curv < 0 and intercept <1 function is curved to the left
   #!if curv > 0 and intercept >1: function is curved to the left,  if curv < 0 and intercept >1 function is curved to the right

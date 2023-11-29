@@ -1,10 +1,11 @@
 /*############################################################*/
 /*                                                            */
-/* streambugs 1.2dev                                          */
+/* streambugs 1.4dev                                          */
 /*                                                            */
 /* creation:                  09.01.2013                      */
 /* modifications:             06.09.2013                      */
 /* revision for version 1.2:  15.01.2014                      */
+/* revision for version 1.4:  29.11.2023                      */
 /*                                                            */
 /*############################################################*/
 
@@ -350,7 +351,7 @@ double get_value_vector(const char* name, struct inpparvector* s)
 
       snprintf(buffer, sizeof(buffer),"Parameter %s not found\n",name);
 
-      Rf_error(buffer);
+      Rf_error("%s", buffer);
 	       }
 	return( (*s).parvals[ind] );
     }
@@ -371,7 +372,7 @@ double get_value_matrix(const char* name, struct inpparmatrix* s, int i)
     if ( ind < 0 )
     {
       snprintf(buffer, sizeof(buffer),"Parameter %s not found\n",name);
-      Rf_error(buffer);
+      Rf_error("%s", buffer);
     }
     return( (*s).parvals[(*s).n_row*ind+i] );
 }
@@ -383,7 +384,7 @@ void get_stoich(const char* name, struct stoichvector* s, int* indy, double* coe
    if ( ind < 0 )
    {
      snprintf(buffer, sizeof(buffer),"Stoichiometric coefficient for %s not found\n",name);
-     Rf_error(buffer);
+     Rf_error("%s", buffer);
    }
    *indy  = (*s).inds[ind];
    *coeff = (*s).coeff[ind];
@@ -1866,7 +1867,7 @@ Rprintf("i = %i, r_prod = %f\n",i+1,r_prod);
               // MR, bug fix
               // sprintf("Unknown process: %s",g_proctaxon[i].procs[j].name);
 	     snprintf(buffer, sizeof(buffer), "Unknown process: %s", g_proctaxon[i].procs[j].name);
-	     Rf_error(buffer);
+	     Rf_error("%s", buffer);
            }
            }
            }
@@ -1929,7 +1930,7 @@ Rprintf("i = %i, fcurrent = %f, ftempmax = %f, fmicrohab = %f\n",
                     {
 		      snprintf(buffer, sizeof(buffer),"Cons process of state var %i on %s: food not found in stoich",
                                i+1,g_procweb[i].webprocs[j].procs[k].name);
-                       Rf_error(buffer);
+                       Rf_error("%s", buffer);
                     }
                     int ind_food = (*g_procweb[i].webprocs[j].procs[k].stoich).inds[ind_food_stoich];
                     yfood[k] = y[ind_food-1];
@@ -2040,7 +2041,7 @@ Rprintf("i = %i, r_cons_tot = %f, sum_food = %f, sum_food_pref = %f\n",
                     {
 		      snprintf(buffer, sizeof(buffer),"Cons process of state var %i on %s: food not found in stoich",
                                i+1,g_procweb[i].webprocs[j].procs[k].name);
-                       Rf_error(buffer);
+                       Rf_error("%s", buffer);
                     }
                     int ind_food = (*g_procweb[i].webprocs[j].procs[k].stoich).inds[ind_food_stoich];
                     yfood[k] = y[ind_food-1];
@@ -2102,7 +2103,7 @@ Rprintf("i = %i, r_fishpred_tot = %f, sum_food = %f, sum_food_pref = %f\n",
            else
            {
 	     snprintf(buffer, sizeof(buffer),"Unknown process: %s",g_procweb[i].webprocs[j].name);
-	     Rf_error(buffer);
+	     Rf_error("%s", buffer);
            }
            }
         }
